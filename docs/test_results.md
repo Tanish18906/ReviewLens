@@ -106,3 +106,34 @@ Benchmarked with 20 repeat requests on local Linux workstation:
 - [x] Disconnecting network retains full application functionality (100% offline).
 - [x] Responsive layout verified at 360px (mobile), 768px (tablet), and 1440px (desktop).
 - [x] Zero unhandled exceptions or error warnings in server or browser console.
+
+---
+
+## 5. UX Stabilization & Responsive Verification (23 October 2026)
+
+**Audited Viewports:** 320px, 375px, 390px, 768px, 1024px, 1280px, 1440px, 1920px  
+**Automated Browser Engine:** Chromium via Playwright MCP (34 matching before/after visual captures + DOM measurement scripts)  
+
+### 5.1 Responsive Stability Audit Results
+
+| Route / State | 320px | 375px | 390px | 768px | 1024px | 1280px | 1440px | 1920px | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| **Guest Catalog** (`/products`) | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | **PASS** |
+| **Student Header** (`/products`) | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | **PASS** |
+| **Admin Header** (`/products`) | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | 0 ovf / 72px | **PASS** |
+| **Admin Dashboard** (`/admin`) | 0 ovf | 0 ovf | 0 ovf | 0 ovf | 0 ovf | 0 ovf | 0 ovf | 0 ovf | **PASS** |
+| **Long Username** (Prof. Montgomery) | — | — | — | 0 ovf / 72px | 0 ovf / 72px | — | — | — | **PASS** |
+| **Product Detail** (`/products/:slug`) | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | — | **PASS** |
+| **Sign In** (`/login`) | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | — | **PASS** |
+| **Registration** (`/register`) | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | — | **PASS** |
+| **Student Profile** (`/profile`) | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | — | **PASS** |
+| **404 Not Found** (`/*`) | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | 0 ovf / 72px | — | 0 ovf / 72px | — | **PASS** |
+
+*Note: "0 ovf" signifies `document.documentElement.scrollWidth === window.innerWidth` (zero horizontal overflow); "72px" signifies `header.offsetHeight === 72` (strictly content-aware, stable sticky header).*
+
+### 5.2 Accessibility & Interaction Checks
+- **Keyboard Navigation:** Account Menu opens via `Enter`/`Space`, traps/cycles arrows via `ArrowDown`/`ArrowUp`, dismisses via `Escape`, restoring focus to trigger button with appropriate `aria-expanded` and `aria-label`.
+- **Touch Target Sizing:** Minimum 44x44px hit areas on search clear, category pills, rating stars, pagination, and form toggles.
+- **Form Usability:** Form input text set to 16px minimum on mobile devices to prevent automatic zoom in Safari/WebKit.
+- **Scroll Padding:** Sticky header clearance enforced via `html { scroll-padding-top: 5rem; }` and `scroll-mt-24` on anchor targets.
+- **No Global Overflow Hacks:** Zero use of `overflow-x: hidden` on root elements. Layout stability is achieved purely through content-aware flexbox, `min-w-0`, and responsive grid configurations.

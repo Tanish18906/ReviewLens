@@ -36,6 +36,11 @@
   --admin-sidebar: 232px;
 }
 
+html {
+  scroll-padding-top: 5rem; /* 80px, clears 72px sticky header with breathing room */
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--page);
   color: var(--ink);

@@ -34,13 +34,13 @@ export function RatingStars({
       <fieldset className="border-none p-0 m-0">
         <legend className="sr-only">Rate this product (1 to 5 stars)</legend>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 bg-page p-1.5 rounded-control border border-border">
+          <div className="flex items-center gap-1 bg-page p-1 rounded-control border border-border">
             {[1, 2, 3, 4, 5].map((starValue) => {
               const isFilled = starValue <= activeRating;
               return (
                 <label
                   key={starValue}
-                  className="cursor-pointer p-1.5 rounded hover:bg-surface transition-all focus-within:ring-2 focus-within:ring-brand"
+                  className="cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center rounded-control hover:bg-surface transition-all focus-within:ring-2 focus-within:ring-brand"
                   onMouseEnter={() => setHoverRating(starValue)}
                   onMouseLeave={() => setHoverRating(null)}
                 >

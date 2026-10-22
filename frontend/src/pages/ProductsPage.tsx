@@ -170,25 +170,25 @@ export function ProductsPage() {
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill bg-surface text-brand border border-brand/25 text-[12px] font-bold tracking-wide uppercase shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span>Blush & Bloom Boutique</span>
+              <span>Blush & Bloom</span>
               <span className="text-muted/60">·</span>
               <span className="text-muted font-medium">Semester 3 Prototype</span>
             </div>
 
-            <h1 className="text-[34px] sm:text-[44px] lg:text-[50px] font-extrabold text-ink tracking-tight leading-[1.12]">
+            <h1 className="text-[32px] sm:text-[42px] lg:text-[48px] font-extrabold text-ink tracking-tight leading-[1.14]">
               Little things. <br />
-              <span className="text-brand">Lovely feelings.</span>
+              <span className="text-brand">Everyday favorites.</span>
             </h1>
 
             <p className="text-[15px] sm:text-[17px] text-muted max-w-xl leading-relaxed">
-              Discover cozy plushies, dreamy fragrances, pretty beauty essentials, and adorable everyday favorites — reviewed by authentic student evaluators.
+              Discover cozy plushies, dreamy fragrances, pretty beauty essentials, and everyday favorites reviewed by students.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <a
                 href="#collection"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand hover:bg-brand-hover text-white text-[14px] font-bold rounded-pill shadow-subtle hover:shadow-card transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand hover:bg-brand-hover text-white text-[14px] font-bold rounded-pill shadow-subtle hover:shadow-card transition-all duration-200 min-h-[44px]"
               >
                 <span>Explore the collection</span>
                 <ArrowRight className="w-4 h-4" />
@@ -197,7 +197,7 @@ export function ProductsPage() {
               <button
                 type="button"
                 onClick={() => handleCategorySelect('Plush Toys')}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-surface hover:bg-brand-pale text-ink hover:text-brand border border-border text-[14px] font-semibold rounded-pill transition-all duration-200 shadow-2xs"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-surface hover:bg-brand-pale text-ink hover:text-brand border border-border text-[14px] font-semibold rounded-pill transition-all duration-200 shadow-2xs min-h-[44px]"
               >
                 <Heart className="w-4 h-4 text-brand" />
                 <span>Browse plushies</span>
@@ -207,16 +207,16 @@ export function ProductsPage() {
             {/* Academic Trust Badges */}
             <div className="pt-4 border-t border-brand/15 flex flex-wrap items-center gap-6 text-[12.5px] text-muted">
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-success" />
-                16 Curated Lifestyle Products
+                <CheckCircle2 className="w-4 h-4 text-success flex-shrink-0" />
+                <span>16 curated products</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-brand" />
-                One Review Per Student Restriction
+                <ShieldCheck className="w-4 h-4 text-brand flex-shrink-0" />
+                <span>One review per product, per student</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                No Ads or Commercial Checkouts
+                <Sparkles className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                <span>No ads or sponsored reviews</span>
               </span>
             </div>
           </div>
@@ -226,7 +226,7 @@ export function ProductsPage() {
             <div className="relative aspect-[4/3] sm:aspect-square w-full rounded-2xl overflow-hidden border-2 border-surface shadow-card group">
               <img
                 src="/images/storefront/hero-lifestyle-collection.webp"
-                alt="Blush & Bloom lifestyle collection arrangement with plushies and beauty favorites"
+                alt="Blush & Bloom collection preview with plushies, fragrances, and beauty favorites"
                 className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500 ease-out"
                 onError={(e) => {
                   const target = e.currentTarget;
@@ -238,17 +238,17 @@ export function ProductsPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent opacity-60" />
               
               {/* Floating Pill Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 bg-surface/95 backdrop-blur-md border border-brand/20 p-3.5 rounded-xl shadow-card flex items-center justify-between">
-                <div>
+              <div className="absolute bottom-4 left-4 right-4 bg-surface/95 backdrop-blur-md border border-brand/20 p-3.5 rounded-xl shadow-card flex items-center justify-between gap-2 min-w-0">
+                <div className="min-w-0">
                   <div className="text-[13px] font-bold text-ink flex items-center gap-1.5">
-                    <span>A little world of lovely things</span>
-                    <Heart className="w-3.5 h-3.5 fill-brand text-brand" />
+                    <span className="truncate">A little world of lovely things</span>
+                    <Heart className="w-3.5 h-3.5 fill-brand text-brand flex-shrink-0" />
                   </div>
-                  <div className="text-[11.5px] text-muted">
-                    Curated boutique catalog & review dataset
+                  <div className="text-[11.5px] text-muted truncate">
+                    Boutique catalog and student reviews
                   </div>
                 </div>
-                <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-1 bg-brand-pale text-brand rounded-pill border border-brand/20">
+                <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-1 bg-brand-pale text-brand rounded-pill border border-brand/20 flex-shrink-0">
                   4 Categories
                 </span>
               </div>
@@ -263,19 +263,19 @@ export function ProductsPage() {
         <div className="flex items-end justify-between mb-6">
           <div>
             <div className="text-[12px] font-bold uppercase tracking-wider text-brand mb-1">
-              Curated Finds
+              Categories
             </div>
             <h2 className="text-[24px] sm:text-[28px] font-bold text-ink tracking-tight">
-              Browse by Mood & Category
+              Browse by category
             </h2>
           </div>
           {selectedCategory !== 'All categories' && (
             <button
               type="button"
               onClick={() => handleCategorySelect('All categories')}
-              className="text-[13px] font-semibold text-brand hover:text-brand-hover underline underline-offset-4"
+              className="text-[13px] font-semibold text-brand hover:text-brand-hover underline underline-offset-4 py-1"
             >
-              View all finds
+              View all products
             </button>
           )}
         </div>
@@ -340,15 +340,15 @@ export function ProductsPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
           <div>
             <h2 className="text-[26px] sm:text-[30px] font-bold text-ink tracking-tight">
-              Our Lovely Collection
+              Browse products
             </h2>
             <p className="text-[14px] sm:text-[15px] text-muted mt-1 leading-relaxed">
-              Find something that makes your day a little sweeter.
+              Explore our collection and discover student favorites.
             </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[13px] font-semibold text-muted bg-surface px-3 py-1.5 rounded-pill border border-border shadow-xs">
-              {totalCount} {totalCount === 1 ? 'find' : 'lovely finds'}
+              {totalCount} {totalCount === 1 ? 'product' : 'products'}
             </span>
           </div>
         </div>
@@ -369,14 +369,15 @@ export function ProductsPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search lovely plushies, perfumes, lip tints..."
-                className="w-full h-[44px] pl-10 pr-12 text-[14px] bg-page border border-border rounded-control text-ink placeholder-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all"
+                placeholder="Search plushies, perfumes, lip tints..."
+                className="w-full h-[44px] pl-10 pr-12 text-[15px] sm:text-[14px] bg-page border border-border rounded-control text-ink placeholder-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-xs text-muted hover:text-ink font-semibold"
+                  aria-label="Clear search text"
+                  className="absolute inset-y-0 right-0 w-11 h-11 flex items-center justify-center text-xs text-muted hover:text-ink font-semibold"
                 >
                   Clear
                 </button>
@@ -431,16 +432,16 @@ export function ProductsPage() {
           <div className="bg-red-50 border border-error/30 rounded-card p-6 text-center max-w-md mx-auto my-12">
             <AlertCircle className="w-8 h-8 text-error mx-auto mb-3" />
             <h3 className="text-[17px] font-bold text-ink mb-1">
-              We couldn't load lovely finds right now
+              We couldn't load products right now
             </h3>
             <p className="text-[13px] text-muted mb-4">{errorMessage}</p>
             <button
               type="button"
               onClick={fetchProducts}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover transition-colors shadow-xs"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-pill hover:bg-brand-hover transition-colors shadow-xs min-h-[44px]"
             >
               <RefreshCcw className="w-3.5 h-3.5" />
-              Retry
+              <span>Retry</span>
             </button>
           </div>
         ) : isLoading ? (
@@ -453,8 +454,8 @@ export function ProductsPage() {
         ) : products.length === 0 ? (
           <EmptyState
             icon={PackageSearch}
-            title="No matching lovely finds"
-            description="We couldn't find any products matching your current keywords or category filter."
+            title="No matching products found"
+            description="Try adjusting your search terms or clearing filters."
             actionText="Clear all filters"
             onAction={handleClearFilters}
           />
@@ -477,7 +478,7 @@ export function ProductsPage() {
           A little world of lovely things.
         </h3>
         <p className="text-[14px] text-muted leading-relaxed max-w-xl mx-auto">
-          Blush & Bloom is a Semester 3 academic prototype showcasing modern aesthetic storefront UI design paired with clean PostgreSQL data persistence and transparent student review analytics.
+          Blush & Bloom is a Semester 3 academic prototype showcasing storefront UI design, database persistence, and transparent review analytics.
         </p>
       </section>
     </PageShell>

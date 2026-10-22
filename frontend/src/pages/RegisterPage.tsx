@@ -86,12 +86,11 @@ export function RegisterPage() {
             </div>
 
             <h1 className="text-[32px] sm:text-[40px] font-extrabold text-ink tracking-tight leading-[1.18]">
-              Join our <br />
-              <span className="text-brand">little world.</span>
+              Create an account.
             </h1>
 
             <p className="text-[15px] sm:text-[16px] text-muted leading-relaxed">
-              Create an account to explore and review lovely everyday finds. Share thoughtful evaluations and contribute to student research.
+              Join Blush & Bloom to explore products, post reviews, and share your thoughts with fellow students.
             </p>
 
             {/* Visual Card */}
@@ -113,7 +112,7 @@ export function RegisterPage() {
                   <Heart className="w-3.5 h-3.5 fill-brand-baby text-brand-baby" />
                   Cute plushies, sweet scents & essentials
                 </span>
-                <span className="text-white/80 font-mono text-[11px]">Academic Prototype</span>
+                <span className="text-white/80 font-mono text-[11px]">Student reviews</span>
               </div>
             </div>
 
@@ -137,7 +136,7 @@ export function RegisterPage() {
                 </div>
                 <h2 className="text-[24px] font-bold text-ink tracking-tight">Create account</h2>
                 <p className="text-[13px] text-muted mt-1">
-                  Register as a student evaluator to post reviews.
+                  Sign up with your student email to post reviews.
                 </p>
               </div>
 
@@ -221,7 +220,7 @@ export function RegisterPage() {
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      className="text-muted hover:text-ink focus:outline-none p-1 rounded transition-colors"
+                      className="w-10 h-10 flex items-center justify-center text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-control transition-colors"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>

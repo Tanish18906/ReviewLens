@@ -86,12 +86,11 @@ export function LoginPage() {
             </div>
 
             <h1 className="text-[32px] sm:text-[40px] font-extrabold text-ink tracking-tight leading-[1.18]">
-              Welcome back, <br />
-              <span className="text-brand">lovely!</span>
+              Welcome back.
             </h1>
 
             <p className="text-[15px] sm:text-[16px] text-muted leading-relaxed">
-              Sign in to share your thoughts on your favorite little finds and contribute honest reviews to our academic database.
+              Sign in to share reviews and explore student feedback on your favorite everyday items.
             </p>
 
             {/* Visual Card */}
@@ -113,7 +112,7 @@ export function LoginPage() {
                   <Heart className="w-3.5 h-3.5 fill-brand-baby text-brand-baby" />
                   A little world of lovely things
                 </span>
-                <span className="text-white/80 font-mono text-[11px]">PostgreSQL backed</span>
+                <span className="text-white/80 font-mono text-[11px]">Verified reviews</span>
               </div>
             </div>
 
@@ -190,7 +189,7 @@ export function LoginPage() {
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      className="text-muted hover:text-ink focus:outline-none p-1 rounded transition-colors"
+                      className="w-10 h-10 flex items-center justify-center text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-control transition-colors"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -207,14 +206,14 @@ export function LoginPage() {
                   ) : (
                     <>
                       <LogIn className="w-4 h-4" />
-                      Sign in to Blush & Bloom
+                      <span>Sign in</span>
                     </>
                   )}
                 </button>
               </form>
 
-              <div className="mt-6 text-center text-[13px] text-muted">
-                Need a new student evaluator account?{' '}
+              <div className="mt-6 text-center text-[13.5px] text-muted">
+                Need an account?{' '}
                 <Link to="/register" className="text-brand font-semibold hover:underline">
                   Create account
                 </Link>

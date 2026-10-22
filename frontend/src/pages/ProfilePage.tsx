@@ -31,11 +31,11 @@ export function ProfilePage() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-pill bg-brand-pale text-brand text-[12px] font-bold uppercase tracking-wider mb-2 border border-brand/20">
             <Sparkles className="w-3.5 h-3.5 text-brand" />
-            <span>Evaluator Profile</span>
+            <span>{user.role === 'admin' ? 'Administrator Profile' : 'Student Profile'}</span>
           </div>
           <h1 className="text-[28px] sm:text-[32px] font-bold text-ink tracking-tight">Account overview</h1>
           <p className="text-[14px] text-muted mt-1 leading-relaxed">
-            Verified student evaluator credentials and session metadata for this Semester 3 prototype.
+            Your account details and review session information.
           </p>
         </div>
 
@@ -43,13 +43,13 @@ export function ProfilePage() {
           
           {/* User Header */}
           <div className="flex items-center gap-4 pb-6 border-b border-border">
-            <div className="w-16 h-16 rounded-full bg-brand-pale text-brand flex items-center justify-center font-bold text-2xl border-2 border-brand/30 shadow-subtle">
-              {user.full_name.charAt(0).toUpperCase()}
+            <div className="w-16 h-16 rounded-full bg-brand-pale text-brand flex items-center justify-center font-bold text-2xl border-2 border-brand/30 shadow-subtle flex-shrink-0">
+              {(user.full_name.trim().charAt(0) || 'U').toUpperCase()}
             </div>
-            <div>
+            <div className="min-w-0">
               <h2 className="text-[20px] font-bold text-ink flex items-center gap-2">
-                <span>{user.full_name}</span>
-                <Heart className="w-4 h-4 text-brand fill-brand/20" />
+                <span className="truncate">{user.full_name}</span>
+                <Heart className="w-4 h-4 text-brand fill-brand/20 flex-shrink-0" />
               </h2>
               <div className="flex items-center gap-2 mt-1">
                 <span
@@ -59,7 +59,7 @@ export function ProfilePage() {
                       : 'bg-brand-pale text-brand border-brand/20'
                   }`}
                 >
-                  {user.role} role
+                  {user.role === 'admin' ? 'Administrator' : 'Student'}
                 </span>
                 <span className="text-[13px] text-muted font-mono">User ID #{user.id}</span>
               </div>
@@ -92,7 +92,7 @@ export function ProfilePage() {
               <div className="text-[14px] font-medium text-ink">
                 {user.role === 'admin'
                   ? 'Administrator (Full Analytics & Management)'
-                  : 'Student Evaluator (1 Review / Product)'}
+                  : 'Student Reviewer (1 Review / Product)'}
               </div>
             </div>
 
@@ -110,10 +110,10 @@ export function ProfilePage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold text-error hover:bg-error-subtle rounded-pill border border-error/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold text-error hover:bg-error-subtle rounded-pill border border-error/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error min-h-[44px]"
             >
               <LogOut className="w-4 h-4" />
-              Sign out of session
+              <span>Sign out</span>
             </button>
           </div>
 

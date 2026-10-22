@@ -31,7 +31,7 @@ export const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
             required={required}
             aria-invalid={!!error}
             aria-describedby={describedBy}
-            className={`w-full h-[44px] px-3.5 text-[15px] bg-surface border rounded-control text-ink placeholder-muted/60 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:border-transparent ${
+            className={`w-full h-[44px] px-3.5 text-[16px] sm:text-[15px] bg-surface border rounded-control text-ink placeholder-muted/60 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:border-transparent ${
               error
                 ? 'border-error bg-error-subtle/30 text-error focus-visible:ring-error'
                 : 'border-border hover:border-muted/50 focus-visible:border-brand'

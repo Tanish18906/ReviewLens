@@ -11,14 +11,14 @@ export function NotFoundPage() {
         </div>
         <h1 className="text-[28px] font-bold text-ink mb-2 tracking-tight">Page not found</h1>
         <p className="text-[15px] text-muted max-w-md mb-6 leading-relaxed">
-          The requested page does not exist or has been moved in this Semester 3 prototype.
+          The page you're looking for doesn't exist or has moved.
         </p>
         <Link
           to="/products"
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand hover:bg-brand-hover text-white text-[14px] font-semibold rounded-pill shadow-subtle hover:shadow-card transition-all"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand hover:bg-brand-hover text-white text-[14px] font-semibold rounded-pill shadow-subtle hover:shadow-card transition-all min-h-[44px]"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to boutique
+          <span>Back to products</span>
         </Link>
       </div>
     </PageShell>

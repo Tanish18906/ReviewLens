@@ -64,7 +64,7 @@ export function ProductDetailPage() {
       setProduct(data);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
-        setProductError("We couldn't find that product in our boutique collection.");
+        setProductError("We couldn't find this product in the catalog.");
       } else {
         setProductError('Unable to load product details from the local server.');
       }
@@ -121,7 +121,7 @@ export function ProductDetailPage() {
 
     const trimmed = formText.trim();
     if (trimmed.length < 20) {
-      setFormError('Please enter at least 20 characters describing your evaluation.');
+      setFormError('Please enter at least 20 characters in your review.');
       return;
     }
     if (trimmed.length > 1000) {
@@ -139,7 +139,7 @@ export function ProductDetailPage() {
         }),
       });
 
-      setFormSuccess('Thank you, lovely! Your review has been saved in our PostgreSQL database.');
+      setFormSuccess('Thank you for your feedback! Your review has been posted.');
       setFormText('');
       setFormRating(5);
 
@@ -183,24 +183,24 @@ export function ProductDetailPage() {
       <PageShell>
         <div className="max-w-md mx-auto my-16 text-center bg-surface border border-border p-8 rounded-card shadow-card">
           <AlertCircle className="w-10 h-10 text-error mx-auto mb-3" />
-          <h1 className="text-[20px] font-bold text-ink mb-2">Find Not Found</h1>
+          <h1 className="text-[20px] font-bold text-ink mb-2">Product not found</h1>
           <p className="text-[14px] text-muted mb-6">
-            {productError || "We couldn't find that lovely item in the catalog."}
+            {productError || 'This product is unavailable or may have been removed.'}
           </p>
           <div className="flex items-center justify-center gap-3">
             <button
               type="button"
               onClick={fetchProduct}
-              className="inline-flex items-center gap-1.5 px-4 py-2 border border-border bg-page hover:bg-surface text-ink font-medium text-[13px] rounded-control transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 border border-border bg-page hover:bg-surface text-ink font-medium text-[13px] rounded-control transition-colors min-h-[44px]"
             >
               <RefreshCcw className="w-3.5 h-3.5" />
-              Retry
+              <span>Retry</span>
             </button>
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white font-medium text-[13px] rounded-control hover:bg-brand-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white font-medium text-[13px] rounded-control hover:bg-brand-hover transition-colors min-h-[44px]"
             >
-              Return to boutique
+              Back to products
             </Link>
           </div>
         </div>
@@ -225,7 +225,7 @@ export function ProductDetailPage() {
             {product.category}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-muted/60" />
-          <span className="font-semibold text-ink truncate max-w-xs">{product.name}</span>
+          <span className="font-semibold text-ink truncate max-w-[140px] sm:max-w-xs">{product.name}</span>
         </nav>
 
         {/* 2-Column Product Spotlight Card */}
@@ -279,17 +279,17 @@ export function ProductDetailPage() {
                   ) : (
                     <span className="text-[14px] text-muted italic flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-brand/60" />
-                      Be the first to review this find
+                      Be the first to review this product
                     </span>
                   )}
                 </div>
 
                 <a
                   href="#review-form"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-pill hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13.5px] font-semibold rounded-pill hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all min-h-[44px]"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  Write a review
+                  <span>Write a review</span>
                 </a>
               </div>
             </div>
@@ -354,9 +354,9 @@ export function ProductDetailPage() {
         <div className="space-y-6">
           <div className="flex items-center justify-between pb-3 border-b border-border">
             <div>
-              <h2 className="text-[20px] sm:text-[22px] font-bold text-ink">Evaluator feedback</h2>
+              <h2 className="text-[20px] sm:text-[22px] font-bold text-ink">Customer reviews</h2>
               <p className="text-[13px] text-muted mt-0.5">
-                {totalReviews} recorded evaluations stored in relational database
+                {totalReviews} student {totalReviews === 1 ? 'review' : 'reviews'}
               </p>
             </div>
           </div>
@@ -374,7 +374,7 @@ export function ProductDetailPage() {
           ) : reviews.length === 0 ? (
             <div className="p-8 text-center bg-surface border border-border rounded-card shadow-xs">
               <p className="text-[14px] text-muted">
-                No reviews yet for this lovely item. Be the first student evaluator to share your thoughts below!
+                No reviews yet. Be the first to share your experience below!
               </p>
             </div>
           ) : (
@@ -431,11 +431,11 @@ export function ProductDetailPage() {
                       setPage(prevPage);
                       fetchReviews(prevPage);
                     }}
-                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-pill border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-[13px] font-semibold rounded-pill border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
                   >
                     Previous
                   </button>
-                  <span className="text-[12.5px] text-muted font-medium">
+                  <span className="text-[13px] text-muted font-medium">
                     Page {page + 1} of {Math.ceil(totalReviews / PAGE_SIZE)}
                   </span>
                   <button
@@ -446,7 +446,7 @@ export function ProductDetailPage() {
                       setPage(nextP);
                       fetchReviews(nextP);
                     }}
-                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-pill border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-4 py-2 text-[13px] font-semibold rounded-pill border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
                   >
                     Next
                   </button>
@@ -456,27 +456,27 @@ export function ProductDetailPage() {
           )}
 
           {/* Inline Review Submission Section */}
-          <div id="review-form" className="pt-6 border-t border-border mt-10">
+          <div id="review-form" className="pt-6 border-t border-border mt-10 scroll-mt-24">
             <div className="bg-surface rounded-2xl border border-border p-6 sm:p-8 shadow-card">
               <h3 className="text-[18px] font-bold text-ink mb-1 flex items-center gap-2">
-                <span>Share your evaluation</span>
+                <span>Write a review</span>
                 <Heart className="w-4 h-4 text-brand fill-brand/20" />
               </h3>
               <p className="text-[13px] text-muted mb-6">
-                Your feedback will be stored in our PostgreSQL review database and prepared for natural language preprocessing.
+                Share your thoughts to help other students evaluate this product.
               </p>
 
               {!isAuthenticated ? (
                 /* Unauthenticated Callout */
                 <div className="p-6 bg-brand-pale/40 rounded-xl border border-brand/20 text-center">
                   <p className="text-[14px] text-ink font-medium mb-3">
-                    Sign in with your student credentials to submit a review for this lovely item.
+                    Sign in to write a review for this product.
                   </p>
                   <Link
                     to={`/login?next=/products/${product.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-pill hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13.5px] font-semibold rounded-pill hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all min-h-[44px]"
                   >
-                    Sign in to Blush & Bloom
+                    Sign in to review
                   </Link>
                 </div>
               ) : userHasReviewed ? (
@@ -488,7 +488,7 @@ export function ProductDetailPage() {
                       You have already submitted a review for this product.
                     </div>
                     <div className="text-[12.5px] text-muted mt-0.5">
-                      Each student account is restricted to one review per product to maintain dataset integrity in Semester 3.
+                      Each student account can submit one review per product.
                     </div>
                   </div>
                 </div>
@@ -532,7 +532,7 @@ export function ProductDetailPage() {
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
                       <label htmlFor="review-textarea" className="text-[13px] font-semibold text-ink">
-                        Review feedback <span className="text-error">*</span>
+                        Your review <span className="text-error">*</span>
                       </label>
                       <span
                         className={`text-[12px] font-medium font-mono ${
@@ -549,9 +549,9 @@ export function ProductDetailPage() {
                       rows={4}
                       value={formText}
                       onChange={(e) => setFormText(e.target.value)}
-                      placeholder="Share details of your evaluation (texture, softness, scent longevity, packaging, overall experience)..."
+                      placeholder="Share details about product quality, scent, texture, or everyday use..."
                       required
-                      className="w-full p-3.5 text-[14px] bg-page border border-border rounded-xl text-ink placeholder-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all leading-relaxed"
+                      className="w-full p-3.5 text-[15px] sm:text-[14px] bg-page border border-border rounded-xl text-ink placeholder-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all leading-relaxed"
                     />
                   </div>
 
@@ -565,7 +565,7 @@ export function ProductDetailPage() {
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        Post review
+                        <span>Post review</span>
                       </>
                     )}
                   </button>
