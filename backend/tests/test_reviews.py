@@ -1,3 +1,4 @@
+import uuid
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
@@ -129,16 +130,17 @@ def test_submit_review_too_short():
 
 def test_submit_valid_review_and_block_duplicate():
     # Register a new student who hasn't reviewed any product yet
+    unique_email = f"reviewer.{uuid.uuid4().hex[:8]}@reviewlens.edu"
     reg_res = client.post("/api/auth/register", json={
         "full_name": "Review Submitter",
-        "email": "reviewer.new@reviewlens.edu",
+        "email": unique_email,
         "password": "ReviewPassword123"
     })
     assert reg_res.status_code == 201
 
     # Login
     login_res = client.post("/api/auth/login", json={
-        "email": "reviewer.new@reviewlens.edu",
+        "email": unique_email,
         "password": "ReviewPassword123"
     })
     token = login_res.json()["access_token"]
