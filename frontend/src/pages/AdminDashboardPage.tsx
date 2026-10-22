@@ -15,6 +15,7 @@ import {
   AlertTriangle,
   ExternalLink,
   ShieldAlert,
+  Heart,
 } from 'lucide-react';
 import {
   BarChart,
@@ -103,19 +104,19 @@ export function AdminDashboardPage() {
   if (isAuthenticated && !isAdmin) {
     return (
       <PageShell>
-        <div className="max-w-md mx-auto my-16 text-center bg-surface border border-border p-8 rounded-card shadow-card">
+        <div className="max-w-md mx-auto my-16 text-center bg-surface border border-border p-8 rounded-2xl shadow-card">
           <ShieldAlert className="w-12 h-12 text-error mx-auto mb-4" />
           <h1 className="text-[22px] font-bold text-ink mb-2">Access Denied</h1>
           <p className="text-[14px] text-muted mb-6">
-            The admin overview dashboard is restricted to administrator accounts. Your account role is{' '}
+            The admin overview dashboard is restricted to administrator accounts. Your current account role is{' '}
             <strong className="text-ink">{user?.role}</strong>.
           </p>
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white font-medium text-[14px] rounded-control hover:bg-brand-hover transition-colors shadow-subtle hover:shadow-card"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white font-semibold text-[14px] rounded-pill hover:bg-brand-hover transition-colors shadow-subtle hover:shadow-card"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to products
+            Back to boutique
           </Link>
         </div>
       </PageShell>
@@ -133,21 +134,22 @@ export function AdminDashboardPage() {
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         
         {/* Desktop Sidebar Rail (232px) */}
-        <aside className="w-full lg:w-[232px] flex-shrink-0 bg-surface rounded-card border border-border p-4 shadow-subtle">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-muted px-3 py-2">
-            Admin Navigation
+        <aside className="w-full lg:w-[232px] flex-shrink-0 bg-surface rounded-2xl border border-border p-4 shadow-subtle">
+          <div className="text-[11px] font-bold uppercase tracking-wider text-muted px-3 py-2 flex items-center gap-1.5">
+            <Heart className="w-3.5 h-3.5 text-brand" />
+            <span>Admin Navigation</span>
           </div>
           <nav className="space-y-1 mt-1">
-            <div className="flex items-center gap-2.5 px-3 py-2 rounded-control bg-brand-subtle text-brand font-semibold text-[14px]">
+            <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-brand-pale text-brand font-semibold text-[14px]">
               <LayoutDashboard className="w-4 h-4" />
               Overview
             </div>
             <Link
               to="/products"
-              className="flex items-center gap-2.5 px-3 py-2 rounded-control text-muted hover:text-ink hover:bg-page font-medium text-[14px] transition-colors"
+              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-muted hover:text-ink hover:bg-page font-medium text-[14px] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to products
+              Back to boutique
             </Link>
           </nav>
 
@@ -155,7 +157,7 @@ export function AdminDashboardPage() {
 
           <div className="px-3 py-2 text-[12px] text-muted leading-relaxed">
             <span className="font-semibold text-ink block mb-1">Academic Scope:</span>
-            Descriptive statistics derived directly from PostgreSQL aggregations. ML sentiment features scheduled for subsequent semesters.
+            Descriptive statistics derived directly from PostgreSQL relational aggregations for Semester 3.
           </div>
         </aside>
 
@@ -167,14 +169,14 @@ export function AdminDashboardPage() {
             <div>
               <div className="flex items-center gap-2.5">
                 <h1 className="text-[26px] sm:text-[30px] font-bold text-ink tracking-tight">
-                  Review overview
+                  Review analytics
                 </h1>
-                <span className="text-[11px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-pill bg-brand-subtle text-brand border border-brand/15">
-                  Demonstration Dataset
+                <span className="text-[11px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-pill bg-brand-pale text-brand border border-brand/20">
+                  Semester 3 Prototype
                 </span>
               </div>
               <p className="text-[14px] text-muted mt-1">
-                Descriptive statistics and star rating distributions from the active database.
+                Descriptive statistics and star rating distributions from the active PostgreSQL database.
               </p>
             </div>
 
@@ -186,37 +188,37 @@ export function AdminDashboardPage() {
                 type="button"
                 onClick={fetchOverview}
                 disabled={isLoading}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[13px] font-semibold text-ink bg-surface hover:bg-page border border-border rounded-control shadow-2xs hover:shadow-subtle transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-[13px] font-semibold text-ink bg-surface hover:bg-page border border-border rounded-pill shadow-2xs hover:shadow-subtle transition-all disabled:opacity-50"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-brand' : ''}`} />
                 Refresh
               </button>
             </div>
           </div>
 
           {errorMessage ? (
-            <div className="p-6 bg-error-subtle border border-error/30 rounded-card text-center text-error">
+            <div className="p-6 bg-error-subtle border border-error/30 rounded-2xl text-center text-error">
               <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
               <div className="font-bold">{errorMessage}</div>
             </div>
           ) : isLoading || !data ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-28 bg-surface rounded-card border border-border p-5 space-y-2">
-                  <div className="h-3 bg-slate-200 rounded w-1/2" />
-                  <div className="h-8 bg-slate-200 rounded w-1/3" />
+                <div key={i} className="h-28 bg-surface rounded-2xl border border-border p-5 space-y-2">
+                  <div className="h-3 bg-brand-pale rounded w-1/2" />
+                  <div className="h-8 bg-brand-pale rounded w-1/3" />
                 </div>
               ))}
             </div>
           ) : (
             <>
-              {/* 4 KPI Cards Grid (Desktop 4-col, Tablet 2-col, Mobile 1-col) */}
+              {/* 4 KPI Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Users */}
-                <div className="bg-surface rounded-card border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
+                <div className="bg-surface rounded-2xl border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
                   <div className="flex items-center justify-between text-muted mb-2">
                     <span className="text-[13px] font-semibold">Registered users</span>
-                    <Users className="w-4 h-4 text-muted/80" />
+                    <Users className="w-4 h-4 text-brand" />
                   </div>
                   <div className="text-[30px] font-bold text-ink tracking-tight font-mono">
                     {data.total_users}
@@ -227,24 +229,24 @@ export function AdminDashboardPage() {
                 </div>
 
                 {/* Products */}
-                <div className="bg-surface rounded-card border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
+                <div className="bg-surface rounded-2xl border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
                   <div className="flex items-center justify-between text-muted mb-2">
-                    <span className="text-[13px] font-semibold">Catalog products</span>
-                    <Package className="w-4 h-4 text-muted/80" />
+                    <span className="text-[13px] font-semibold">Boutique products</span>
+                    <Package className="w-4 h-4 text-brand" />
                   </div>
                   <div className="text-[30px] font-bold text-ink tracking-tight font-mono">
                     {data.total_products}
                   </div>
                   <div className="text-[11.5px] text-muted mt-1">
-                    Curated across 5 categories
+                    Curated across 4 boutique categories
                   </div>
                 </div>
 
                 {/* Reviews */}
-                <div className="bg-surface rounded-card border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
+                <div className="bg-surface rounded-2xl border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
                   <div className="flex items-center justify-between text-muted mb-2">
                     <span className="text-[13px] font-semibold">Total reviews</span>
-                    <MessageSquare className="w-4 h-4 text-muted/80" />
+                    <MessageSquare className="w-4 h-4 text-brand" />
                   </div>
                   <div className="text-[30px] font-bold text-ink tracking-tight font-mono">
                     {data.total_reviews}
@@ -255,7 +257,7 @@ export function AdminDashboardPage() {
                 </div>
 
                 {/* Average Rating */}
-                <div className="bg-surface rounded-card border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
+                <div className="bg-surface rounded-2xl border border-border p-5 shadow-subtle hover:shadow-card transition-shadow">
                   <div className="flex items-center justify-between text-muted mb-2">
                     <span className="text-[13px] font-semibold">Average rating</span>
                     <Sparkles className="w-4 h-4 text-amber-500" />
@@ -270,55 +272,55 @@ export function AdminDashboardPage() {
                 </div>
               </div>
 
-              {/* Rating Distribution 5-Bar Chart Section */}
-              <div className="bg-surface rounded-card border border-border p-6 sm:p-7 shadow-subtle">
+              {/* Rating Distribution Bar Chart Section */}
+              <div className="bg-surface rounded-2xl border border-border p-6 sm:p-7 shadow-subtle">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                   <div>
                     <h2 className="text-[18px] font-bold text-ink">Rating distribution</h2>
                     <p className="text-[13px] text-muted">
-                      Review frequency count across 1 to 5 star ratings
+                      Frequency distribution across 1 to 5 star ratings
                     </p>
                   </div>
-                  <span className="text-[12px] font-semibold text-muted bg-page px-2.5 py-1 rounded border border-border self-start sm:self-auto font-mono">
+                  <span className="text-[12px] font-semibold text-brand bg-brand-pale px-3 py-1 rounded-pill border border-brand/20 self-start sm:self-auto font-mono">
                     Total: {data.total_reviews} reviews
                   </span>
                 </div>
 
-                {/* Recharts Bar Chart */}
+                {/* Recharts Bar Chart in Blush Pink Palette */}
                 <div className="h-64 w-full mt-4">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={chartData}
                       margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E3E9F2" />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F0DCE5" />
                       <XAxis
                         dataKey="rating"
-                        tick={{ fill: '#202B3D', fontSize: 13, fontWeight: 500 }}
-                        axisLine={{ stroke: '#E3E9F2' }}
+                        tick={{ fill: '#382B35', fontSize: 13, fontWeight: 600 }}
+                        axisLine={{ stroke: '#F0DCE5' }}
                       />
                       <YAxis
                         allowDecimals={false}
                         domain={[0, 'auto']}
-                        tick={{ fill: '#66758C', fontSize: 12 }}
-                        axisLine={{ stroke: '#E3E9F2' }}
+                        tick={{ fill: '#786772', fontSize: 12 }}
+                        axisLine={{ stroke: '#F0DCE5' }}
                       />
                       <Tooltip
-                        cursor={{ fill: 'rgba(32, 43, 61, 0.04)' }}
+                        cursor={{ fill: 'rgba(217, 107, 147, 0.08)' }}
                         formatter={(val: number) => [`${val} reviews`, 'Count']}
                         labelFormatter={(lbl) => `${lbl} Rating`}
                         contentStyle={{
                           backgroundColor: '#FFFFFF',
-                          borderColor: '#E3E9F2',
-                          borderRadius: '8px',
-                          boxShadow: '0 4px 12px rgba(32, 43, 61, 0.08)',
+                          borderColor: '#F0DCE5',
+                          borderRadius: '12px',
+                          boxShadow: '0 4px 14px rgba(56, 43, 53, 0.08)',
                           fontSize: '13px',
-                          color: '#202B3D',
+                          color: '#382B35',
                         }}
                       />
-                      <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+                      <Bar dataKey="count" radius={[8, 8, 0, 0]}>
                         {chartData.map((_, index) => (
-                          <Cell key={`cell-${index}`} fill="#4056D6" />
+                          <Cell key={`cell-${index}`} fill="#D96B93" />
                         ))}
                       </Bar>
                     </BarChart>
@@ -328,12 +330,12 @@ export function AdminDashboardPage() {
                 {/* Accessible Data Table Fallback */}
                 <div className="mt-4 pt-4 border-t border-border">
                   <details className="text-[12px] text-muted cursor-pointer group">
-                    <summary className="font-semibold text-ink/80 hover:text-ink">
+                    <summary className="font-semibold text-ink/80 hover:text-brand">
                       View accessible rating data table
                     </summary>
-                    <table className="w-full mt-3 border border-border rounded-control overflow-hidden text-left">
+                    <table className="w-full mt-3 border border-border rounded-xl overflow-hidden text-left">
                       <thead>
-                        <tr className="bg-page text-ink text-[12px] font-semibold">
+                        <tr className="bg-brand-pale/40 text-ink text-[12px] font-semibold">
                           <th className="p-2.5 border-b border-border">Star Rating</th>
                           <th className="p-2.5 border-b border-border text-right">Review Count</th>
                           <th className="p-2.5 border-b border-border text-right">Share (%)</th>
@@ -364,11 +366,11 @@ export function AdminDashboardPage() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
                 {/* Most Reviewed Products (col 6) */}
-                <div className="lg:col-span-6 bg-surface rounded-card border border-border p-6 shadow-subtle flex flex-col justify-between">
+                <div className="lg:col-span-6 bg-surface rounded-2xl border border-border p-6 shadow-subtle flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-[18px] font-bold text-ink">Most reviewed products</h2>
-                      <span className="text-[12px] font-semibold text-muted bg-page px-2 py-0.5 rounded border border-border">
+                      <h2 className="text-[18px] font-bold text-ink">Most reviewed finds</h2>
+                      <span className="text-[12px] font-semibold text-brand bg-brand-pale px-2.5 py-0.5 rounded-pill border border-brand/20">
                         Top 5
                       </span>
                     </div>
@@ -377,10 +379,10 @@ export function AdminDashboardPage() {
                       <table className="w-full text-left text-[13px]">
                         <thead>
                           <tr className="border-b border-border text-muted font-semibold">
-                            <th className="pb-2.5">Product Name</th>
+                            <th className="pb-2.5">Find</th>
                             <th className="pb-2.5">Category</th>
                             <th className="pb-2.5 text-right">Reviews</th>
-                            <th className="pb-2.5 text-right">Avg Rating</th>
+                            <th className="pb-2.5 text-right">Rating</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-border/60">
@@ -411,11 +413,11 @@ export function AdminDashboardPage() {
                 </div>
 
                 {/* Recent Reviews (col 6) */}
-                <div className="lg:col-span-6 bg-surface rounded-card border border-border p-6 shadow-subtle flex flex-col justify-between">
+                <div className="lg:col-span-6 bg-surface rounded-2xl border border-border p-6 shadow-subtle flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-[18px] font-bold text-ink">Recent reviews</h2>
-                      <span className="text-[12px] font-semibold text-muted bg-page px-2 py-0.5 rounded border border-border">
+                      <h2 className="text-[18px] font-bold text-ink">Recent evaluations</h2>
+                      <span className="text-[12px] font-semibold text-brand bg-brand-pale px-2.5 py-0.5 rounded-pill border border-brand/20">
                         Latest 5
                       </span>
                     </div>
@@ -430,7 +432,7 @@ export function AdminDashboardPage() {
                         return (
                           <div
                             key={r.id}
-                            className="p-3.5 bg-page rounded-control border border-border/80 text-[13px] space-y-1.5"
+                            className="p-3.5 bg-page rounded-xl border border-border/80 text-[13px] space-y-1.5"
                           >
                             <div className="flex items-center justify-between">
                               <span className="font-semibold text-ink">{r.reviewer_name}</span>

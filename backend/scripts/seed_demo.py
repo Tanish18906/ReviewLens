@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Deterministic demo seed/reset script for ReviewLens Semester 3 prototype.
+Boutique Storefront Migration: Blush & Bloom ("A little world of lovely things")
 
 Seeds:
 - 1 Pre-created Administrator account (admin@reviewlens.edu)
 - 6 Student demo accounts (student1@reviewlens.edu - student6@reviewlens.edu)
-- 10 Curated Products across 5 common categories
-- 48 Realistic synthetic reviews with varied ratings (1-5) and UTC timestamps
+- 16 Curated Boutique Products across 4 core categories:
+  * Plush Toys ("Cuddle Corner")
+  * Fragrances ("Sweet Scents")
+  * Beauty & Makeup ("Pretty Essentials")
+  * Accessories & Gifts ("Little Joys")
+- Realistic synthetic reviews with varied ratings (1-5) and UTC timestamps
   strictly respecting UNIQUE(user_id, product_id).
 
 Usage:
@@ -82,152 +87,232 @@ USERS_DATA = [
     },
 ]
 
-# 10 Curated Products
+# 16 Curated Boutique Products across 4 database-backed categories
 PRODUCTS_DATA = [
+    # Category 1: Plush Toys (Cuddle Corner)
     {
-        "slug": "wireless-headphones",
-        "name": "AcousticPro Wireless Headphones",
-        "category": "Audio",
-        "description": "Comfortable over-ear Bluetooth headphones with active noise cancellation, low latency audio, and up to 30 hours of continuous battery life.",
-        "image_path": "/products/wireless-headphones.jpg",
+        "slug": "strawberry-bunny-plush",
+        "name": "Strawberry Bunny Plush",
+        "category": "Plush Toys",
+        "description": "Super soft strawberry bunny stuffed animal with embroidered rosy cheeks and floppy ears, crafted from velvety cloud-touch fabric.",
+        "image_path": "/images/products/strawberry-bunny-plush.webp",
     },
     {
-        "slug": "mechanical-keyboard",
-        "name": "KeyCraft Tactile Mechanical Keyboard",
-        "category": "Computing",
-        "description": "Compact tenkeyless mechanical keyboard featuring hot-swappable tactile switches, durable PBT keycaps, and customizable white backlighting.",
-        "image_path": "/products/mechanical-keyboard.jpg",
+        "slug": "cloud-bear-teddy",
+        "name": "Cloud Bear Teddy",
+        "category": "Plush Toys",
+        "description": "Classic huggable pastel teddy bear with a gentle cream fur texture, sweet sitting pose, and an adorable hand-stitched blush nose.",
+        "image_path": "/images/products/cloud-bear-teddy.webp",
     },
     {
-        "slug": "smart-fitness-watch",
-        "name": "PulseTrack Smart Fitness Watch",
-        "category": "Wearables",
-        "description": "Lightweight health tracker with continuous heart rate monitoring, sleep analysis, 5ATM water resistance, and crisp AMOLED display.",
-        "image_path": "/products/smart-fitness-watch.jpg",
+        "slug": "pastel-pink-cat-plush",
+        "name": "Pastel Pink Cat Plush",
+        "category": "Plush Toys",
+        "description": "Chubby kawaii pink kitten plushie with round paws, embroidered whiskers, and ultra-squishy marshmallow stuffing.",
+        "image_path": "/images/products/pastel-pink-cat-plush.webp",
     },
     {
-        "slug": "ergonomic-office-chair",
-        "name": "ErgoFlex Mesh Desk Chair",
-        "category": "Home Office",
-        "description": "Breathable mesh ergonomic chair with dynamic lumbar support, 3D armrests, and smooth reclining tension control for long study sessions.",
-        "image_path": "/products/ergonomic-office-chair.jpg",
+        "slug": "cozy-marshmallow-plush",
+        "name": "Cozy Marshmallow Lamb Plush",
+        "category": "Plush Toys",
+        "description": "Dreamy snuggle lamb with looped textured fleece, gentle pastel hooves, and a soothing weighted feel for relaxing evenings.",
+        "image_path": "/images/products/cozy-marshmallow-plush.webp",
+    },
+
+    # Category 2: Fragrances (Sweet Scents)
+    {
+        "slug": "rose-bloom-eau-de-parfum",
+        "name": "Rose Bloom Eau de Parfum",
+        "category": "Fragrances",
+        "description": "A delicate floral bouquet with notes of fresh damask rose petals, sparkling lychee, and soft white musk in an elegant glass flacon.",
+        "image_path": "/images/products/rose-bloom-eau-de-parfum.webp",
     },
     {
-        "slug": "noise-cancelling-earbuds",
-        "name": "EchoFree True Wireless Earbuds",
-        "category": "Audio",
-        "description": "In-ear wireless earbuds featuring hybrid active noise cancellation, transparency audio mode, and quick Qi-wireless charging case.",
-        "image_path": "/products/noise-cancelling-earbuds.jpg",
+        "slug": "vanilla-dream-body-mist",
+        "name": "Vanilla Dream Body Mist",
+        "category": "Fragrances",
+        "description": "Lightweight sweet body and hair mist infused with warm Madagascar vanilla bean, caramelized sugar, and whipped coconut cream.",
+        "image_path": "/images/products/vanilla-dream-body-mist.webp",
     },
     {
-        "slug": "laptop-stand-aluminum",
-        "name": "AluRise Adjustable Laptop Stand",
-        "category": "Accessories",
-        "description": "Sturdy anodized aluminum stand with multi-angle height adjustment, ventilation cutouts, and anti-slip silicone cushions.",
-        "image_path": "/products/laptop-stand-aluminum.jpg",
+        "slug": "peach-blossom-fragrance",
+        "name": "Peach Blossom Eau de Toilette",
+        "category": "Fragrances",
+        "description": "Crisp and juicy white peach nectar blended with blooming spring blossoms, sunny citrus zest, and sheer cedarwood.",
+        "image_path": "/images/products/peach-blossom-fragrance.webp",
     },
     {
-        "slug": "usb-c-multiport-hub",
-        "name": "ConnectPro 7-in-1 USB-C Hub",
-        "category": "Computing",
-        "description": "Compact expansion hub providing 4K HDMI output, three USB 3.0 ports, SD/microSD card slots, and 100W USB-C Power Delivery pass-through.",
-        "image_path": "/products/usb-c-multiport-hub.jpg",
+        "slug": "soft-cotton-perfume",
+        "name": "Soft Cotton Linen Mist",
+        "category": "Fragrances",
+        "description": "Clean and comforting aroma of fresh sun-dried cotton sheets, soft iris petals, and warm morning breeze.",
+        "image_path": "/images/products/soft-cotton-perfume.webp",
+    },
+
+    # Category 3: Beauty & Makeup (Pretty Essentials)
+    {
+        "slug": "rosy-glow-lip-tint",
+        "name": "Rosy Glow Dewy Lip Tint",
+        "category": "Beauty & Makeup",
+        "description": "Glassy water-drop lip tint delivering long-lasting soft petal color, nourishing vitamin E, and a non-sticky glossy finish.",
+        "image_path": "/images/products/rosy-glow-lip-tint.webp",
     },
     {
-        "slug": "ultrawide-desk-mat",
-        "name": "DeskGuard Premium Desk Mat",
-        "category": "Accessories",
-        "description": "Spacious dual-sided waterproof desk pad with stitched edges, providing smooth mouse tracking and desk surface protection.",
-        "image_path": "/products/ultrawide-desk-mat.jpg",
+        "slug": "peach-cream-blush",
+        "name": "Peach Cream Velvet Blush",
+        "category": "Beauty & Makeup",
+        "description": "Silky melt-on cream-to-powder blush compact that leaves a natural healthy flush with weightless buildable pigment.",
+        "image_path": "/images/products/peach-cream-blush.webp",
     },
     {
-        "slug": "smart-led-desk-lamp",
-        "name": "Lumina Eye-Care LED Task Lamp",
-        "category": "Home Office",
-        "description": "Flicker-free desk lamp with automated ambient light sensor, 5 color temperature presets, and a built-in USB charging port.",
-        "image_path": "/products/smart-led-desk-lamp.jpg",
+        "slug": "everyday-makeup-brush-set",
+        "name": "Rose Gold Makeup Brush Set",
+        "category": "Beauty & Makeup",
+        "description": "Set of five vegan cruelty-free brushes with pastel pink wooden handles, rose gold ferrules, and ultra-plush synthetic bristles.",
+        "image_path": "/images/products/everyday-makeup-brush-set.webp",
     },
     {
-        "slug": "hd-webcam-microphone",
-        "name": "ClearView 1080p HD Webcam",
-        "category": "Computing",
-        "description": "Plug-and-play 1080p video conferencing camera with dual noise-reducing microphones and a physical sliding privacy shutter.",
-        "image_path": "/products/hd-webcam-microphone.jpg",
+        "slug": "soft-pink-beauty-sponge-set",
+        "name": "Petal Soft Beauty Sponge Trio",
+        "category": "Beauty & Makeup",
+        "description": "Trio of latex-free teardrop blending sponges for seamless foundation, cream blush, and powder application.",
+        "image_path": "/images/products/soft-pink-beauty-sponge-set.webp",
+    },
+
+    # Category 4: Accessories & Gifts (Little Joys)
+    {
+        "slug": "pastel-hair-claw-set",
+        "name": "Pastel Blossom Hair Claw Set",
+        "category": "Accessories & Gifts",
+        "description": "Durable matte cellulose acetate hair claw clips designed to hold thick or fine hair comfortably without pulling.",
+        "image_path": "/images/products/pastel-hair-claw-set.webp",
+    },
+    {
+        "slug": "heart-vanity-mirror",
+        "name": "Heart-Shaped Standing Vanity Mirror",
+        "category": "Accessories & Gifts",
+        "description": "Two-sided tabletop vanity mirror with 1x/3x magnification, rotatable 360-degree angle, and pastel pink heart frame.",
+        "image_path": "/images/products/heart-vanity-mirror.webp",
+    },
+    {
+        "slug": "cute-bow-hair-clips",
+        "name": "Satin Ribbon Bow Hair Clips",
+        "category": "Accessories & Gifts",
+        "description": "Pair of handmade pink satin ribbon bow alligator clips to add an effortless coquette touch to any hairstyle.",
+        "image_path": "/images/products/cute-bow-hair-clips.webp",
+    },
+    {
+        "slug": "floral-makeup-pouch",
+        "name": "Quilted Floral Cosmetic Pouch",
+        "category": "Accessories & Gifts",
+        "description": "Charming cotton quilted zipper pouch with pastel floral print, water-resistant interior lining, and ample space for daily beauty essentials.",
+        "image_path": "/images/products/floral-makeup-pouch.webp",
     },
 ]
 
-# 48 Synthetic Reviews: mapped by (student_index, product_index)
-# Index ranges: student_index in 1..6 (Aarav, Riddhima, Karan, Sneha, Rohan, Ananya)
-# product_index in 0..9
+# Synthetic Reviews: mapped by (student_index, product_index, rating, text_body, created_at)
+# student_index: 1=Aarav, 2=Riddhima, 3=Karan, 4=Sneha, 5=Rohan, 6=Ananya
+# product_index: 0..15
 REVIEWS_SPEC = [
-    # Product 0: wireless-headphones (Audio) - 6 reviews
-    (1, 0, 5, "Outstanding sound quality and the noise cancellation blocks library noise completely.", datetime.datetime(2026, 9, 10, 11, 0, tzinfo=datetime.timezone.utc)),
-    (2, 0, 4, "Very comfortable for long lecture listening sessions, though the ear cups get slightly warm.", datetime.datetime(2026, 9, 12, 14, 20, tzinfo=datetime.timezone.utc)),
-    (3, 0, 4, "Battery life easily lasts me three days of college commuting. Bluetooth connection is rock solid.", datetime.datetime(2026, 9, 15, 9, 30, tzinfo=datetime.timezone.utc)),
-    (4, 0, 5, "Clean treble and punchy bass without distortion. The build quality feels very premium.", datetime.datetime(2026, 9, 20, 16, 10, tzinfo=datetime.timezone.utc)),
-    (5, 0, 3, "Decent sound but the microphone picks up a bit of background room echo during Zoom calls.", datetime.datetime(2026, 9, 25, 10, 0, tzinfo=datetime.timezone.utc)),
-    (6, 0, 4, "Great value for the price. The physical buttons are responsive and intuitive to use.", datetime.datetime(2026, 10, 1, 18, 45, tzinfo=datetime.timezone.utc)),
+    # Product 0: strawberry-bunny-plush (Plush Toys) - 5 reviews
+    (1, 0, 5, "The fabric is unimaginably soft! The embroidered strawberry detail on the ear is so adorable.", datetime.datetime(2026, 9, 10, 11, 0, tzinfo=datetime.timezone.utc)),
+    (2, 0, 5, "My favorite plush on my dorm bed! It has the perfect squishiness and holds its shape nicely.", datetime.datetime(2026, 9, 12, 14, 20, tzinfo=datetime.timezone.utc)),
+    (3, 0, 4, "Bought this as a study companion. High quality stitching with zero loose threads.", datetime.datetime(2026, 9, 15, 9, 30, tzinfo=datetime.timezone.utc)),
+    (4, 0, 5, "The pastel pink shade looks even prettier in person than on camera. Highly recommended!", datetime.datetime(2026, 9, 20, 16, 10, tzinfo=datetime.timezone.utc)),
+    (6, 0, 4, "Super sweet and cuddly. Slight initial factory smell, but it aired out within a day.", datetime.datetime(2026, 10, 1, 18, 45, tzinfo=datetime.timezone.utc)),
 
-    # Product 1: mechanical-keyboard (Computing) - 5 reviews
-    (1, 1, 5, "Typing feel is extremely satisfying. The tactile bump is noticeable without being annoyingly loud.", datetime.datetime(2026, 9, 11, 12, 0, tzinfo=datetime.timezone.utc)),
-    (2, 1, 4, "Keycaps have a pleasant textured finish. Clean design without unnecessary gaming branding.", datetime.datetime(2026, 9, 16, 17, 30, tzinfo=datetime.timezone.utc)),
-    (3, 1, 5, "Compact layout frees up a ton of mouse space on my desk. Hot-swap sockets work as advertised.", datetime.datetime(2026, 9, 22, 13, 15, tzinfo=datetime.timezone.utc)),
-    (4, 1, 2, "Spacebar has a noticeable rattle right out of the box. Stabilizers need lubrication.", datetime.datetime(2026, 9, 28, 15, 40, tzinfo=datetime.timezone.utc)),
-    (5, 1, 4, "Solid metal backplate gives it good weight so it doesn't slide across the table.", datetime.datetime(2026, 10, 5, 11, 25, tzinfo=datetime.timezone.utc)),
+    # Product 1: cloud-bear-teddy (Plush Toys) - 4 reviews
+    (1, 1, 5, "Classic teddy bear silhouette with the coziest fur texture. Very comforting to hug while reading.", datetime.datetime(2026, 9, 11, 12, 0, tzinfo=datetime.timezone.utc)),
+    (2, 1, 4, "Delicate cream color matches any bedroom aesthetic. The pink nose is a lovely finishing touch.", datetime.datetime(2026, 9, 16, 17, 30, tzinfo=datetime.timezone.utc)),
+    (4, 1, 5, "Extremely well constructed and the sitting posture stays stable on shelves.", datetime.datetime(2026, 9, 28, 15, 40, tzinfo=datetime.timezone.utc)),
+    (5, 1, 4, "High quality material that doesn't shed. Great gift option for anyone who loves bears.", datetime.datetime(2026, 10, 5, 11, 25, tzinfo=datetime.timezone.utc)),
 
-    # Product 2: smart-fitness-watch (Wearables) - 5 reviews
-    (2, 2, 4, "Pedometer and heart rate sensors match my treadmill readouts closely. Screen is bright outdoors.", datetime.datetime(2026, 9, 13, 8, 45, tzinfo=datetime.timezone.utc)),
-    (3, 2, 3, "Companion mobile app is a bit cluttered, but the hardware itself is lightweight and reliable.", datetime.datetime(2026, 9, 18, 19, 10, tzinfo=datetime.timezone.utc)),
-    (4, 2, 5, "Battery lasts a full week even with daily morning runs recorded. Extremely happy with it.", datetime.datetime(2026, 9, 24, 7, 30, tzinfo=datetime.timezone.utc)),
-    (5, 2, 4, "Sleep tracking accurately caught my restless nights during midterm exam week.", datetime.datetime(2026, 10, 2, 21, 0, tzinfo=datetime.timezone.utc)),
-    (6, 2, 3, "Strap material caused mild skin itching after sweaty workouts until I swapped it out.", datetime.datetime(2026, 10, 8, 14, 50, tzinfo=datetime.timezone.utc)),
+    # Product 2: pastel-pink-cat-plush (Plush Toys) - 4 reviews
+    (2, 2, 5, "The round shape and tiny paws are beyond cute. Incredibly squishy and relaxing to squeeze.", datetime.datetime(2026, 9, 13, 8, 45, tzinfo=datetime.timezone.utc)),
+    (3, 2, 4, "Looks just like an adorable mochi dumpling. Fabric feels velvety and premium.", datetime.datetime(2026, 9, 18, 19, 10, tzinfo=datetime.timezone.utc)),
+    (5, 2, 3, "Super cute design though slightly smaller than I anticipated from the photos.", datetime.datetime(2026, 10, 2, 21, 0, tzinfo=datetime.timezone.utc)),
+    (6, 2, 5, "Instant mood lifter on my desk! The subtle pink pastel tone is just perfection.", datetime.datetime(2026, 10, 8, 14, 50, tzinfo=datetime.timezone.utc)),
 
-    # Product 3: ergonomic-office-chair (Home Office) - 5 reviews
-    (1, 3, 5, "Significantly reduced my lower back stiffness after 6-hour coding assignments. Excellent support.", datetime.datetime(2026, 9, 14, 16, 0, tzinfo=datetime.timezone.utc)),
-    (3, 3, 4, "Mesh back keeps cool in summer heat. Assembly took about 25 minutes with the included allen key.", datetime.datetime(2026, 9, 19, 10, 15, tzinfo=datetime.timezone.utc)),
-    (4, 3, 5, "Armrests have great 3D adjustability. Much sturdier than cheap local office store chairs.", datetime.datetime(2026, 9, 27, 18, 20, tzinfo=datetime.timezone.utc)),
-    (5, 3, 3, "Seat cushion could be slightly thicker for people sitting all day, but ergonomic shape is great.", datetime.datetime(2026, 10, 4, 12, 40, tzinfo=datetime.timezone.utc)),
-    (6, 3, 4, "Wheels roll smoothly on hard laminate floors without scratching the surface.", datetime.datetime(2026, 10, 11, 16, 30, tzinfo=datetime.timezone.utc)),
+    # Product 3: cozy-marshmallow-plush (Plush Toys) - 4 reviews
+    (1, 3, 5, "The looped fleece texture gives it such a cozy sensory feel. Perfect bedtime companion.", datetime.datetime(2026, 9, 14, 16, 0, tzinfo=datetime.timezone.utc)),
+    (3, 3, 4, "Gentle weighted feel provides genuine calming comfort during stressful exam weeks.", datetime.datetime(2026, 9, 19, 10, 15, tzinfo=datetime.timezone.utc)),
+    (4, 3, 5, "Exceptional craftsmanship. The pastel fleece hasn't matted even after weeks of hugs.", datetime.datetime(2026, 9, 27, 18, 20, tzinfo=datetime.timezone.utc)),
+    (6, 3, 4, "Sweet expression and wonderfully soft materials throughout.", datetime.datetime(2026, 10, 11, 16, 30, tzinfo=datetime.timezone.utc)),
 
-    # Product 4: noise-cancelling-earbuds (Audio) - 5 reviews
-    (1, 4, 4, "Compact charging case easily fits in pocket. Sound signature is balanced and natural.", datetime.datetime(2026, 9, 17, 13, 0, tzinfo=datetime.timezone.utc)),
-    (2, 4, 5, "Transparency mode is very clear when ordering coffee or crossing streets safely.", datetime.datetime(2026, 9, 21, 11, 45, tzinfo=datetime.timezone.utc)),
-    (3, 4, 2, "Ear tips didn't seal well in my left ear, resulting in weak bass response.", datetime.datetime(2026, 9, 29, 9, 15, tzinfo=datetime.timezone.utc)),
-    (5, 4, 4, "Quick 10-minute charge gives almost two hours of playback when in a rush.", datetime.datetime(2026, 10, 6, 17, 0, tzinfo=datetime.timezone.utc)),
-    (6, 4, 4, "Touch controls are responsive without accidental trigger when adjusting in the ear.", datetime.datetime(2026, 10, 12, 10, 20, tzinfo=datetime.timezone.utc)),
+    # Product 4: rose-bloom-eau-de-parfum (Fragrances) - 5 reviews
+    (1, 4, 4, "Fresh and youthful rose fragrance without any powdery heaviness. Lasts about 6 hours on clothes.", datetime.datetime(2026, 9, 17, 13, 0, tzinfo=datetime.timezone.utc)),
+    (2, 4, 5, "The lychee top note makes it crisp and modern! Beautiful bottle with a sturdy glass sprayer.", datetime.datetime(2026, 9, 21, 11, 45, tzinfo=datetime.timezone.utc)),
+    (4, 4, 4, "Very elegant daily signature scent. Received multiple compliments from classmates.", datetime.datetime(2026, 9, 29, 9, 15, tzinfo=datetime.timezone.utc)),
+    (5, 4, 3, "Pleasant floral scent, though I wish the sillage was slightly stronger in open outdoor areas.", datetime.datetime(2026, 10, 6, 17, 0, tzinfo=datetime.timezone.utc)),
+    (6, 4, 5, "Subtle, feminine, and graceful. The dry down into white musk is heavenly.", datetime.datetime(2026, 10, 12, 10, 20, tzinfo=datetime.timezone.utc)),
 
-    # Product 5: laptop-stand-aluminum (Accessories) - 5 reviews
-    (1, 5, 5, "Simple, elegant, and rock solid aluminum. Eliminates neck strain when working at my desk.", datetime.datetime(2026, 9, 15, 14, 0, tzinfo=datetime.timezone.utc)),
-    (2, 5, 5, "Folds completely flat so I can carry it in my college backpack every single day.", datetime.datetime(2026, 9, 23, 16, 30, tzinfo=datetime.timezone.utc)),
-    (4, 5, 4, "Silicone padding protects laptop finish from scratches. Well engineered product.", datetime.datetime(2026, 9, 30, 12, 10, tzinfo=datetime.timezone.utc)),
-    (5, 5, 4, "Good heat dissipation compared to resting a hot laptop directly on wooden tables.", datetime.datetime(2026, 10, 7, 15, 45, tzinfo=datetime.timezone.utc)),
-    (6, 5, 3, "A bit stiff to adjust the angle initially, but holds heavy 16-inch laptops without slipping.", datetime.datetime(2026, 10, 14, 18, 0, tzinfo=datetime.timezone.utc)),
+    # Product 5: vanilla-dream-body-mist (Fragrances) - 4 reviews
+    (1, 5, 4, "Smells like warm vanilla cookies without being overwhelming. Perfect post-shower mist.", datetime.datetime(2026, 9, 15, 14, 0, tzinfo=datetime.timezone.utc)),
+    (2, 5, 5, "The coconut cream undertone makes it feel summery and cozy at the same time. Love this mist!", datetime.datetime(2026, 9, 23, 16, 30, tzinfo=datetime.timezone.utc)),
+    (3, 5, 2, "A bit too sweet for my personal taste, but the bottle size is generous for the price.", datetime.datetime(2026, 9, 30, 12, 10, tzinfo=datetime.timezone.utc)),
+    (5, 5, 4, "Spritzes evenly and does not leave any sticky residue on clothes or skin.", datetime.datetime(2026, 10, 7, 15, 45, tzinfo=datetime.timezone.utc)),
 
-    # Product 6: usb-c-multiport-hub (Computing) - 5 reviews
-    (1, 6, 4, "Provides all ports missing from modern laptops. 4K 60Hz HDMI works without screen flickering.", datetime.datetime(2026, 9, 18, 15, 0, tzinfo=datetime.timezone.utc)),
-    (2, 6, 3, "Gets slightly warm during continuous 100W power passthrough, but transfer speeds remain high.", datetime.datetime(2026, 9, 26, 10, 30, tzinfo=datetime.timezone.utc)),
-    (3, 6, 4, "SD card reader speeds are fast enough for quick photo transfer from my DSLR camera.", datetime.datetime(2026, 10, 3, 14, 15, tzinfo=datetime.timezone.utc)),
-    (4, 6, 1, "HDMI port became intermittent after three weeks of plugging and unplugging.", datetime.datetime(2026, 10, 9, 11, 0, tzinfo=datetime.timezone.utc)),
-    (6, 6, 4, "Braided cable gives confidence it won't fray around the connector neck.", datetime.datetime(2026, 10, 15, 13, 40, tzinfo=datetime.timezone.utc)),
+    # Product 6: peach-blossom-fragrance (Fragrances) - 4 reviews
+    (2, 6, 5, "Authentic juicy peach opening with crisp blossom notes. Not synthetic at all!", datetime.datetime(2026, 9, 18, 15, 0, tzinfo=datetime.timezone.utc)),
+    (3, 6, 4, "Light and sparkling for spring days. The citrus note adds an uplifting freshness.", datetime.datetime(2026, 9, 26, 10, 30, tzinfo=datetime.timezone.utc)),
+    (4, 6, 5, "One of my absolute favorites! Very reminiscent of Japanese boutique fruit fragrances.", datetime.datetime(2026, 10, 3, 14, 15, tzinfo=datetime.timezone.utc)),
+    (6, 6, 3, "Love the fragrance itself but requires reapplication after roughly 3 hours.", datetime.datetime(2026, 10, 9, 11, 0, tzinfo=datetime.timezone.utc)),
 
-    # Product 7: ultrawide-desk-mat (Accessories) - 4 reviews
-    (2, 7, 5, "Extremely smooth surface for optical mouse sensor. Spilled water wiped right off.", datetime.datetime(2026, 9, 20, 17, 0, tzinfo=datetime.timezone.utc)),
-    (3, 7, 4, "Edge stitching is clean and doesn't fray against wrists during typing.", datetime.datetime(2026, 9, 28, 12, 0, tzinfo=datetime.timezone.utc)),
-    (4, 7, 4, "Large enough to fit full keyboard and mouse pad comfortably without crowding.", datetime.datetime(2026, 10, 5, 16, 20, tzinfo=datetime.timezone.utc)),
-    (5, 7, 4, "Subtle dark color looks professional and doesn't show desk dust easily.", datetime.datetime(2026, 10, 13, 9, 30, tzinfo=datetime.timezone.utc)),
+    # Product 7: soft-cotton-perfume (Fragrances) - 4 reviews
+    (1, 7, 5, "The cleanest laundry scent ever! Gives an effortless fresh-out-of-the-dryer vibe all day.", datetime.datetime(2026, 9, 20, 17, 0, tzinfo=datetime.timezone.utc)),
+    (3, 7, 4, "Wonderful for spritzing bedding and sweaters before going to morning classes.", datetime.datetime(2026, 9, 28, 12, 0, tzinfo=datetime.timezone.utc)),
+    (4, 7, 4, "Non-irritating on sensitive skin. Very calming and relaxing before sleeping.", datetime.datetime(2026, 10, 5, 16, 20, tzinfo=datetime.timezone.utc)),
+    (5, 7, 5, "Minimalist clean scent profile that never causes headache or sensory overload.", datetime.datetime(2026, 10, 13, 9, 30, tzinfo=datetime.timezone.utc)),
 
-    # Product 8: smart-led-desk-lamp (Home Office) - 5 reviews
-    (1, 8, 5, "Warm reading light preset is easy on the eyes late at night. No audible buzzing noise.", datetime.datetime(2026, 9, 22, 20, 0, tzinfo=datetime.timezone.utc)),
-    (2, 8, 4, "Auto-dimming feature adjusts brightness smoothly when room lights change.", datetime.datetime(2026, 9, 29, 18, 10, tzinfo=datetime.timezone.utc)),
-    (3, 8, 4, "USB port in the base is very convenient for charging my phone overnight.", datetime.datetime(2026, 10, 6, 22, 0, tzinfo=datetime.timezone.utc)),
-    (4, 8, 5, "Gooseneck holds position securely without drooping over time. Highly recommended.", datetime.datetime(2026, 10, 12, 19, 15, tzinfo=datetime.timezone.utc)),
-    (6, 8, 3, "Touch controls can be slightly sensitive if bumped accidentally while organizing papers.", datetime.datetime(2026, 10, 16, 21, 30, tzinfo=datetime.timezone.utc)),
+    # Product 8: rosy-glow-lip-tint (Beauty & Makeup) - 5 reviews
+    (2, 8, 5, "Stays dewy for hours without feeling sticky. Gives the prettiest natural berry flush!", datetime.datetime(2026, 9, 22, 20, 0, tzinfo=datetime.timezone.utc)),
+    (3, 8, 4, "Hydrating texture that doesn't accentuate dry lip lines. The applicator sponge is soft.", datetime.datetime(2026, 9, 29, 18, 10, tzinfo=datetime.timezone.utc)),
+    (4, 8, 5, "Leaves a long-lasting gentle tint even after drinking coffee or eating lunch.", datetime.datetime(2026, 10, 6, 22, 0, tzinfo=datetime.timezone.utc)),
+    (5, 8, 1, "The cap leaked slightly inside my makeup bag when turned upside down.", datetime.datetime(2026, 10, 12, 19, 15, tzinfo=datetime.timezone.utc)),
+    (6, 8, 5, "The shine is glassy and reflective like high-end Korean lip oils. Definite staple.", datetime.datetime(2026, 10, 16, 21, 30, tzinfo=datetime.timezone.utc)),
 
-    # Product 9: hd-webcam-microphone (Computing) - 4 reviews
-    (1, 9, 4, "Picture is sharp and colors look natural under normal room lighting without harsh glare.", datetime.datetime(2026, 9, 24, 11, 0, tzinfo=datetime.timezone.utc)),
-    (3, 9, 4, "Physical privacy shutter provides peace of mind when not on active calls.", datetime.datetime(2026, 10, 2, 15, 30, tzinfo=datetime.timezone.utc)),
-    (4, 9, 2, "Stereo mic audio sounds a bit hollow in rooms with high ceilings and no carpeting.", datetime.datetime(2026, 10, 10, 13, 0, tzinfo=datetime.timezone.utc)),
-    (5, 9, 4, "Plug and play worked immediately on Ubuntu and Mac without installing special drivers.", datetime.datetime(2026, 10, 17, 10, 45, tzinfo=datetime.timezone.utc)),
+    # Product 9: peach-cream-blush (Beauty & Makeup) - 4 reviews
+    (1, 9, 4, "Melts into the skin seamlessly with fingertips. Very flattering peachy-pink tone.", datetime.datetime(2026, 9, 24, 11, 0, tzinfo=datetime.timezone.utc)),
+    (2, 9, 5, "Sets to a velvety matte finish that doesn't fade throughout eight-hour college days.", datetime.datetime(2026, 10, 2, 15, 30, tzinfo=datetime.timezone.utc)),
+    (4, 9, 4, "Buildable pigment so you can keep it sheer or layer for a vivid cheerful cheek glow.", datetime.datetime(2026, 10, 10, 13, 0, tzinfo=datetime.timezone.utc)),
+    (6, 9, 4, "Compact mirror inside the lid is handy for quick touch-ups between seminars.", datetime.datetime(2026, 10, 17, 10, 45, tzinfo=datetime.timezone.utc)),
+
+    # Product 10: everyday-makeup-brush-set (Beauty & Makeup) - 4 reviews
+    (1, 10, 5, "Bristles are incredibly silky and soft. No shedding even after washing with gentle shampoo.", datetime.datetime(2026, 9, 25, 14, 0, tzinfo=datetime.timezone.utc)),
+    (2, 10, 4, "The rose gold ferrules look chic on my vanity. All five brush sizes are truly practical.", datetime.datetime(2026, 10, 3, 11, 30, tzinfo=datetime.timezone.utc)),
+    (4, 10, 5, "Blends cream and powder eyeshadow effortlessly without harsh demarcation lines.", datetime.datetime(2026, 10, 9, 16, 20, tzinfo=datetime.timezone.utc)),
+    (5, 10, 3, "Solid basic set, though I wish it included a dedicated angled brow brush as well.", datetime.datetime(2026, 10, 15, 12, 15, tzinfo=datetime.timezone.utc)),
+
+    # Product 11: soft-pink-beauty-sponge-set (Beauty & Makeup) - 4 reviews
+    (2, 11, 5, "Expands to twice its size when damp and gives an airbrushed finish with any foundation.", datetime.datetime(2026, 9, 26, 13, 10, tzinfo=datetime.timezone.utc)),
+    (3, 11, 4, "Tear drop tip gets right into the inner corners of under-eyes without tugging skin.", datetime.datetime(2026, 10, 4, 17, 45, tzinfo=datetime.timezone.utc)),
+    (4, 11, 4, "Durable latex-free foam that doesn't rip easily when squeezed dry with a towel.", datetime.datetime(2026, 10, 11, 9, 50, tzinfo=datetime.timezone.utc)),
+    (6, 11, 5, "Three pack is fantastic value. Softest sponges I have used this semester.", datetime.datetime(2026, 10, 18, 14, 0, tzinfo=datetime.timezone.utc)),
+
+    # Product 12: pastel-hair-claw-set (Accessories & Gifts) - 4 reviews
+    (1, 12, 5, "Strong spring that actually holds thick wavy hair in a French twist all afternoon!", datetime.datetime(2026, 9, 27, 10, 0, tzinfo=datetime.timezone.utc)),
+    (2, 12, 5, "Matte finish is smooth with no sharp seam edges. The pastel colors are so aesthetic.", datetime.datetime(2026, 10, 5, 15, 15, tzinfo=datetime.timezone.utc)),
+    (4, 12, 4, "Doesn't slip or cause headache tension like cheaper plastic drugstore claws.", datetime.datetime(2026, 10, 12, 11, 40, tzinfo=datetime.timezone.utc)),
+    (6, 12, 4, "Holds hair securely during laboratory classes and study sessions. Very pleased.", datetime.datetime(2026, 10, 19, 16, 30, tzinfo=datetime.timezone.utc)),
+
+    # Product 13: heart-vanity-mirror (Accessories & Gifts) - 4 reviews
+    (2, 13, 5, "The cutest addition to my bedroom desk! The 3x magnifying side is clear with zero distortion.", datetime.datetime(2026, 9, 28, 16, 0, tzinfo=datetime.timezone.utc)),
+    (3, 13, 4, "Rotates smoothly and stays in position without drooping. Stable weighted base.", datetime.datetime(2026, 10, 7, 18, 20, tzinfo=datetime.timezone.utc)),
+    (4, 13, 5, "Pale pink pastel frame looks super aesthetic in room decor photos and daily makeup routines.", datetime.datetime(2026, 10, 13, 14, 10, tzinfo=datetime.timezone.utc)),
+    (5, 13, 3, "Mirror reflection is crystal clear, though the plastic swivel screw needed tightening out of box.", datetime.datetime(2026, 10, 18, 10, 0, tzinfo=datetime.timezone.utc)),
+
+    # Product 14: cute-bow-hair-clips (Accessories & Gifts) - 4 reviews
+    (1, 14, 4, "The alligator clip teeth have a rubberized coating so they do not snag delicate hair.", datetime.datetime(2026, 9, 29, 12, 30, tzinfo=datetime.timezone.utc)),
+    (2, 14, 5, "Silky satin ribbon holds its shape crisp and neat. Instant coquette vintage aesthetic!", datetime.datetime(2026, 10, 8, 13, 50, tzinfo=datetime.timezone.utc)),
+    (4, 14, 5, "Wore them for college cultural festival presentations and received many sweet compliments.", datetime.datetime(2026, 10, 14, 17, 15, tzinfo=datetime.timezone.utc)),
+    (6, 14, 4, "Very cute and lightweight. They stay in place even during brisk walks across campus.", datetime.datetime(2026, 10, 20, 15, 0, tzinfo=datetime.timezone.utc)),
+
+    # Product 15: floral-makeup-pouch (Accessories & Gifts) - 5 reviews
+    (1, 15, 5, "The quilting is thick and protective. Fits my daily lip tint, powder, mirror, and keys easily.", datetime.datetime(2026, 9, 30, 15, 45, tzinfo=datetime.timezone.utc)),
+    (2, 15, 5, "Charming vintage floral fabric with a smooth gold zipper that glides without snagging.", datetime.datetime(2026, 10, 9, 19, 0, tzinfo=datetime.timezone.utc)),
+    (3, 15, 4, "Water-resistant lining inside makes it easy to wipe down in case of accidental makeup spills.", datetime.datetime(2026, 10, 14, 11, 20, tzinfo=datetime.timezone.utc)),
+    (4, 15, 4, "Adorable print and spacious enough for all essentials without being bulky in a backpack.", datetime.datetime(2026, 10, 17, 16, 40, tzinfo=datetime.timezone.utc)),
+    (5, 15, 2, "Stitching is great but the zipper pull tag could be slightly wider for easier grip.", datetime.datetime(2026, 10, 21, 13, 10, tzinfo=datetime.timezone.utc)),
 ]
 
 

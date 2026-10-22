@@ -13,7 +13,10 @@ export default {
           DEFAULT: "var(--brand)",
           hover: "var(--brand-hover)",
           subtle: "var(--brand-subtle)",
+          baby: "var(--brand-baby)",
+          pale: "var(--brand-pale)",
         },
+        lavender: "var(--lavender)",
         page: "var(--page)",
         surface: "var(--surface)",
         border: {
@@ -32,7 +35,10 @@ export default {
           DEFAULT: "var(--error)",
           subtle: "var(--error-subtle)",
         },
-        chart: "var(--chart)",
+        chart: {
+          DEFAULT: "var(--chart)",
+          subtle: "var(--chart-subtle)",
+        },
       },
       borderRadius: {
         card: "var(--radius-card)",

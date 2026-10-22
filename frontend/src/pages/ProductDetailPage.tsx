@@ -14,6 +14,8 @@ import {
   UserCheck,
   Star,
   RefreshCcw,
+  Sparkles,
+  Heart,
 } from 'lucide-react';
 
 interface ReviewItem {
@@ -62,7 +64,7 @@ export function ProductDetailPage() {
       setProduct(data);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
-        setProductError("We couldn't find that product in the academic catalog.");
+        setProductError("We couldn't find that product in our boutique collection.");
       } else {
         setProductError('Unable to load product details from the local server.');
       }
@@ -119,7 +121,7 @@ export function ProductDetailPage() {
 
     const trimmed = formText.trim();
     if (trimmed.length < 20) {
-      setFormError('Please enter at least 20 characters describing your experience.');
+      setFormError('Please enter at least 20 characters describing your evaluation.');
       return;
     }
     if (trimmed.length > 1000) {
@@ -137,7 +139,7 @@ export function ProductDetailPage() {
         }),
       });
 
-      setFormSuccess('Your review has been successfully submitted and stored.');
+      setFormSuccess('Thank you, lovely! Your review has been saved in our PostgreSQL database.');
       setFormText('');
       setFormRating(5);
 
@@ -161,14 +163,14 @@ export function ProductDetailPage() {
     return (
       <PageShell>
         <div className="animate-pulse space-y-6 max-w-5xl mx-auto py-4">
-          <div className="h-4 bg-slate-200 rounded w-1/4" />
+          <div className="h-4 bg-brand-pale rounded w-1/4" />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div className="md:col-span-5 aspect-[4/3] bg-slate-200 rounded-card" />
+            <div className="md:col-span-5 aspect-square bg-brand-pale/60 rounded-card" />
             <div className="md:col-span-7 space-y-4">
-              <div className="h-4 bg-slate-200 rounded w-1/6" />
-              <div className="h-8 bg-slate-200 rounded w-3/4" />
-              <div className="h-4 bg-slate-200 rounded w-1/3" />
-              <div className="h-20 bg-slate-100 rounded w-full" />
+              <div className="h-4 bg-brand-pale rounded w-1/6" />
+              <div className="h-8 bg-brand-pale rounded w-3/4" />
+              <div className="h-4 bg-brand-pale rounded w-1/3" />
+              <div className="h-24 bg-brand-pale/40 rounded w-full" />
             </div>
           </div>
         </div>
@@ -181,9 +183,9 @@ export function ProductDetailPage() {
       <PageShell>
         <div className="max-w-md mx-auto my-16 text-center bg-surface border border-border p-8 rounded-card shadow-card">
           <AlertCircle className="w-10 h-10 text-error mx-auto mb-3" />
-          <h1 className="text-[20px] font-bold text-ink mb-2">Product Not Found</h1>
+          <h1 className="text-[20px] font-bold text-ink mb-2">Find Not Found</h1>
           <p className="text-[14px] text-muted mb-6">
-            {productError || "We couldn't find that product."}
+            {productError || "We couldn't find that lovely item in the catalog."}
           </p>
           <div className="flex items-center justify-center gap-3">
             <button
@@ -198,7 +200,7 @@ export function ProductDetailPage() {
               to="/products"
               className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white font-medium text-[13px] rounded-control hover:bg-brand-hover transition-colors"
             >
-              Return to catalog
+              Return to boutique
             </Link>
           </div>
         </div>
@@ -213,39 +215,47 @@ export function ProductDetailPage() {
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-muted">
           <Link to="/products" className="hover:text-brand transition-colors font-medium">
-            Products
+            Collection
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-muted/60" />
-          <span className="text-muted">{product.category}</span>
+          <Link
+            to={`/products?category=${encodeURIComponent(product.category)}`}
+            className="hover:text-brand transition-colors"
+          >
+            {product.category}
+          </Link>
           <ChevronRight className="w-3.5 h-3.5 text-muted/60" />
           <span className="font-semibold text-ink truncate max-w-xs">{product.name}</span>
         </nav>
 
-        {/* 2-Column Hero Card */}
-        <div className="bg-surface rounded-card border border-border shadow-card overflow-hidden p-6 sm:p-8">
+        {/* 2-Column Product Spotlight Card */}
+        <div className="bg-surface rounded-3xl border border-border shadow-card overflow-hidden p-6 sm:p-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            {/* 4:3 Aspect Image Frame */}
-            <div className="md:col-span-5 aspect-[4/3] w-full bg-page rounded-control border border-border overflow-hidden">
+            
+            {/* 1:1 Aspect Ratio Image Frame */}
+            <div className="md:col-span-5 aspect-square w-full bg-brand-pale/30 rounded-2xl border border-border overflow-hidden relative group">
               <img
                 src={product.image_path}
                 alt={product.name}
                 onError={(e) => {
                   const target = e.currentTarget;
-                  if (!target.src.endsWith('.svg')) {
+                  if (target.src.endsWith('.webp')) {
+                    target.src = product.image_path.replace('.webp', '.jpg');
+                  } else if (!target.src.endsWith('.svg')) {
                     target.src = product.image_path.replace('.jpg', '.svg');
                   }
                 }}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-300"
               />
             </div>
 
-            {/* Details panel */}
-            <div className="md:col-span-7 flex flex-col justify-between">
+            {/* Details Panel */}
+            <div className="md:col-span-7 flex flex-col justify-between space-y-6">
               <div>
-                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-muted px-2.5 py-1 rounded-pill bg-page border border-border mb-2.5">
+                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-brand px-3 py-1 rounded-pill bg-brand-pale border border-brand/20 mb-3">
                   {product.category}
                 </span>
-                <h1 className="text-[26px] sm:text-[32px] font-bold text-ink tracking-tight mb-3">
+                <h1 className="text-[26px] sm:text-[32px] font-extrabold text-ink tracking-tight mb-3">
                   {product.name}
                 </h1>
                 <p className="text-[15px] text-muted leading-relaxed mb-6">
@@ -267,15 +277,18 @@ export function ProductDetailPage() {
                       </span>
                     </div>
                   ) : (
-                    <span className="text-[14px] text-muted italic">No ratings yet</span>
+                    <span className="text-[14px] text-muted italic flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-brand/60" />
+                      Be the first to review this find
+                    </span>
                   )}
                 </div>
 
                 <a
                   href="#review-form"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-pill hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
+                  <MessageSquare className="w-4 h-4" />
                   Write a review
                 </a>
               </div>
@@ -285,7 +298,7 @@ export function ProductDetailPage() {
 
         {/* Rating Distribution & Summary Card */}
         {product.review_count > 0 && (
-          <div className="bg-surface rounded-card border border-border shadow-xs p-6 sm:p-7">
+          <div className="bg-surface rounded-2xl border border-border shadow-xs p-6 sm:p-7">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               
               {/* Score Big Display */}
@@ -297,14 +310,14 @@ export function ProductDetailPage() {
                   <RatingStars rating={product.average_rating || 0} size="md" />
                 </div>
                 <div className="text-[13px] text-muted font-medium">
-                  Based on {product.review_count} verified {product.review_count === 1 ? 'review' : 'reviews'}
+                  Based on {product.review_count} student {product.review_count === 1 ? 'review' : 'reviews'}
                 </div>
               </div>
 
               {/* 5-Bucket Distribution Bars */}
               <div className="md:col-span-8 space-y-2.5">
                 <div className="text-[13px] font-bold uppercase tracking-wider text-muted mb-2">
-                  Rating Distribution ({reviews.length} shown)
+                  Rating Breakdown ({reviews.length} shown)
                 </div>
                 {distribution.map(({ star, count, percentage }) => (
                   <div key={star} className="flex items-center gap-3 text-[13px]">
@@ -314,7 +327,7 @@ export function ProductDetailPage() {
                     </span>
 
                     {/* Progress Bar Track */}
-                    <div className="flex-1 h-2.5 bg-page rounded-full overflow-hidden border border-border/60">
+                    <div className="flex-1 h-2.5 bg-brand-pale/50 rounded-full overflow-hidden border border-brand/15">
                       <div
                         className="h-full bg-brand rounded-full transition-all duration-300"
                         style={{ width: `${percentage}%` }}
@@ -343,7 +356,7 @@ export function ProductDetailPage() {
             <div>
               <h2 className="text-[20px] sm:text-[22px] font-bold text-ink">Evaluator feedback</h2>
               <p className="text-[13px] text-muted mt-0.5">
-                {totalReviews} recorded feedback submissions in relational database
+                {totalReviews} recorded evaluations stored in relational database
               </p>
             </div>
           </div>
@@ -352,16 +365,16 @@ export function ProductDetailPage() {
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="p-5 bg-surface border border-border rounded-card animate-pulse space-y-3">
-                  <div className="h-4 bg-slate-200 rounded w-1/4" />
-                  <div className="h-3 bg-slate-100 rounded w-full" />
-                  <div className="h-3 bg-slate-100 rounded w-3/4" />
+                  <div className="h-4 bg-brand-pale rounded w-1/4" />
+                  <div className="h-3 bg-brand-pale/50 rounded w-full" />
+                  <div className="h-3 bg-brand-pale/50 rounded w-3/4" />
                 </div>
               ))}
             </div>
           ) : reviews.length === 0 ? (
             <div className="p-8 text-center bg-surface border border-border rounded-card shadow-xs">
               <p className="text-[14px] text-muted">
-                No reviews yet for this product. Be the first student reviewer to submit feedback below.
+                No reviews yet for this lovely item. Be the first student evaluator to share your thoughts below!
               </p>
             </div>
           ) : (
@@ -378,7 +391,7 @@ export function ProductDetailPage() {
                 return (
                   <article
                     key={rev.id}
-                    className="p-5 sm:p-6 bg-surface rounded-card border border-border shadow-xs hover:border-border/80 transition-colors"
+                    className="p-5 sm:p-6 bg-surface rounded-2xl border border-border shadow-xs hover:border-brand/30 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-4 mb-2">
                       <div className="flex items-center gap-2">
@@ -386,7 +399,7 @@ export function ProductDetailPage() {
                           {rev.reviewer_name}
                         </span>
                         {rev.source === 'demo_seed' && (
-                          <span className="text-[10px] font-bold text-muted bg-page px-2 py-0.5 rounded-pill border border-border">
+                          <span className="text-[10px] font-bold text-brand bg-brand-pale px-2 py-0.5 rounded-pill border border-brand/20">
                             Demo Seed
                           </span>
                         )}
@@ -418,7 +431,7 @@ export function ProductDetailPage() {
                       setPage(prevPage);
                       fetchReviews(prevPage);
                     }}
-                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-control border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-pill border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Previous
                   </button>
@@ -433,7 +446,7 @@ export function ProductDetailPage() {
                       setPage(nextP);
                       fetchReviews(nextP);
                     }}
-                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-control border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-pill border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Next
                   </button>
@@ -444,29 +457,32 @@ export function ProductDetailPage() {
 
           {/* Inline Review Submission Section */}
           <div id="review-form" className="pt-6 border-t border-border mt-10">
-            <div className="bg-surface rounded-card border border-border p-6 sm:p-8 shadow-card">
-              <h3 className="text-[18px] font-bold text-ink mb-1">Share your evaluation</h3>
+            <div className="bg-surface rounded-2xl border border-border p-6 sm:p-8 shadow-card">
+              <h3 className="text-[18px] font-bold text-ink mb-1 flex items-center gap-2">
+                <span>Share your evaluation</span>
+                <Heart className="w-4 h-4 text-brand fill-brand/20" />
+              </h3>
               <p className="text-[13px] text-muted mb-6">
                 Your feedback will be stored in our PostgreSQL review database and prepared for natural language preprocessing.
               </p>
 
               {!isAuthenticated ? (
                 /* Unauthenticated Callout */
-                <div className="p-6 bg-page rounded-control border border-border text-center">
+                <div className="p-6 bg-brand-pale/40 rounded-xl border border-brand/20 text-center">
                   <p className="text-[14px] text-ink font-medium mb-3">
-                    Sign in with your student credentials to submit a review for this product.
+                    Sign in with your student credentials to submit a review for this lovely item.
                   </p>
                   <Link
                     to={`/login?next=/products/${product.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-pill hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
                   >
-                    Sign in to ReviewLens
+                    Sign in to Blush & Bloom
                   </Link>
                 </div>
               ) : userHasReviewed ? (
                 /* Already Reviewed Callout */
-                <div className="p-5 bg-page rounded-control border border-border/80 flex items-center gap-3">
-                  <UserCheck className="w-5 h-5 text-success flex-shrink-0" />
+                <div className="p-5 bg-brand-pale/40 rounded-xl border border-brand/25 flex items-center gap-3">
+                  <UserCheck className="w-5 h-5 text-brand flex-shrink-0" />
                   <div>
                     <div className="text-[14px] font-semibold text-ink">
                       You have already submitted a review for this product.
@@ -482,7 +498,7 @@ export function ProductDetailPage() {
                   {formSuccess && (
                     <div
                       role="status"
-                      className="p-3.5 bg-success-subtle border border-success/30 text-success rounded-control text-[13px] font-medium flex items-center gap-2"
+                      className="p-3.5 bg-success-subtle border border-success/30 text-success rounded-xl text-[13px] font-medium flex items-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
                       <span>{formSuccess}</span>
@@ -492,7 +508,7 @@ export function ProductDetailPage() {
                   {formError && (
                     <div
                       role="alert"
-                      className="p-3.5 bg-error-subtle border border-error/30 text-error rounded-control text-[13px] font-medium flex items-center gap-2"
+                      className="p-3.5 bg-error-subtle border border-error/30 text-error rounded-xl text-[13px] font-medium flex items-center gap-2"
                     >
                       <span aria-hidden="true">⚠</span>
                       <span>{formError}</span>
@@ -533,16 +549,16 @@ export function ProductDetailPage() {
                       rows={4}
                       value={formText}
                       onChange={(e) => setFormText(e.target.value)}
-                      placeholder="Share details of your evaluation (build quality, performance, ergonomics, usability)..."
+                      placeholder="Share details of your evaluation (texture, softness, scent longevity, packaging, overall experience)..."
                       required
-                      className="w-full p-3.5 text-[14px] bg-page border border-border rounded-control text-ink placeholder-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all leading-relaxed"
+                      className="w-full p-3.5 text-[14px] bg-page border border-border rounded-xl text-ink placeholder-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all leading-relaxed"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={formSubmitting || formText.trim().length < 20}
-                    className="h-[44px] px-6 bg-brand hover:bg-brand-hover text-white text-[14px] font-semibold rounded-control shadow-subtle hover:shadow-card inline-flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="h-[44px] px-6 bg-brand hover:bg-brand-hover text-white text-[14px] font-semibold rounded-pill shadow-subtle hover:shadow-card inline-flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {formSubmitting ? (
                       <span>Saving review...</span>

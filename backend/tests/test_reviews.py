@@ -10,8 +10,8 @@ def test_product_list_all():
     response = client.get("/api/products")
     assert response.status_code == 200
     data = response.json()
-    assert data["total"] == 10
-    assert len(data["items"]) == 10
+    assert data["total"] == 16
+    assert len(data["items"]) == 16
     # First product check
     prod = data["items"][0]
     assert "slug" in prod
@@ -20,11 +20,11 @@ def test_product_list_all():
 
 
 def test_product_search_match():
-    response = client.get("/api/products?q=keyboard")
+    response = client.get("/api/products?q=plush")
     assert response.status_code == 200
     data = response.json()
     assert data["total"] >= 1
-    assert any("keyboard" in item["name"].lower() for item in data["items"])
+    assert any("plush" in item["name"].lower() for item in data["items"])
 
 
 def test_product_search_no_match():
@@ -36,12 +36,12 @@ def test_product_search_no_match():
 
 
 def test_product_category_filter():
-    response = client.get("/api/products?category=Audio")
+    response = client.get("/api/products?category=Plush+Toys")
     assert response.status_code == 200
     data = response.json()
-    assert data["total"] == 2
+    assert data["total"] == 4
     for item in data["items"]:
-        assert item["category"] == "Audio"
+        assert item["category"] == "Plush Toys"
 
 
 def test_product_sort_highest_rated():
@@ -54,11 +54,11 @@ def test_product_sort_highest_rated():
 
 
 def test_product_detail_found():
-    response = client.get("/api/products/wireless-headphones")
+    response = client.get("/api/products/strawberry-bunny-plush")
     assert response.status_code == 200
     data = response.json()
-    assert data["slug"] == "wireless-headphones"
-    assert data["name"] == "AcousticPro Wireless Headphones"
+    assert data["slug"] == "strawberry-bunny-plush"
+    assert data["name"] == "Strawberry Bunny Plush"
     assert data["review_count"] >= 5
 
 
@@ -69,7 +69,7 @@ def test_product_detail_not_found():
 
 
 def test_get_product_reviews():
-    response = client.get("/api/products/wireless-headphones/reviews?limit=5")
+    response = client.get("/api/products/strawberry-bunny-plush/reviews?limit=5")
     assert response.status_code == 200
     data = response.json()
     assert "items" in data
@@ -85,7 +85,7 @@ def test_submit_review_unauthenticated():
         "rating": 5,
         "review_text": "This is a valid review text with more than twenty characters."
     }
-    response = client.post("/api/products/wireless-headphones/reviews", json=payload)
+    response = client.post("/api/products/strawberry-bunny-plush/reviews", json=payload)
     assert response.status_code == 401
 
 
@@ -99,14 +99,14 @@ def test_submit_review_invalid_stars():
     headers = {"Authorization": f"Bearer {token}"}
 
     # Test 6 stars
-    res_high = client.post("/api/products/wireless-headphones/reviews", json={
+    res_high = client.post("/api/products/strawberry-bunny-plush/reviews", json={
         "rating": 6,
         "review_text": "Valid length text but rating 6 is invalid and should fail."
     }, headers=headers)
     assert res_high.status_code == 422
 
     # Test 0 stars
-    res_low = client.post("/api/products/wireless-headphones/reviews", json={
+    res_low = client.post("/api/products/strawberry-bunny-plush/reviews", json={
         "rating": 0,
         "review_text": "Valid length text but rating 0 is invalid and should fail."
     }, headers=headers)
@@ -121,7 +121,7 @@ def test_submit_review_too_short():
     token = login_res.json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
-    response = client.post("/api/products/wireless-headphones/reviews", json={
+    response = client.post("/api/products/strawberry-bunny-plush/reviews", json={
         "rating": 5,
         "review_text": "Too short!"
     }, headers=headers)
@@ -146,9 +146,9 @@ def test_submit_valid_review_and_block_duplicate():
     token = login_res.json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
-    # Submit first review on mechanical-keyboard
-    review_body = "The tactile feedback on this mechanical keyboard exceeded my expectations for academic coding."
-    res1 = client.post("/api/products/mechanical-keyboard/reviews", json={
+    # Submit first review on cloud-bear-teddy
+    review_body = "The cloud bear teddy plush is incredibly soft and comfortable for daily study sessions."
+    res1 = client.post("/api/products/cloud-bear-teddy/reviews", json={
         "rating": 5,
         "review_text": review_body
     }, headers=headers)
@@ -160,7 +160,7 @@ def test_submit_valid_review_and_block_duplicate():
     assert data1["source"] == "user"
 
     # Attempt duplicate review on SAME product with SAME user
-    res2 = client.post("/api/products/mechanical-keyboard/reviews", json={
+    res2 = client.post("/api/products/cloud-bear-teddy/reviews", json={
         "rating": 4,
         "review_text": "Attempting a second review on the same product which must be blocked."
     }, headers=headers)

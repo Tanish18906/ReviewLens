@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
 import { PageShell } from '../components/PageShell';
-import { User, LogOut, Calendar, ShieldCheck, Mail } from 'lucide-react';
+import { User, LogOut, Calendar, ShieldCheck, Mail, Heart, Sparkles } from 'lucide-react';
 
 export function ProfilePage() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -29,27 +29,34 @@ export function ProfilePage() {
     <PageShell>
       <div className="max-w-2xl mx-auto py-4 sm:py-6 space-y-6">
         <div>
-          <h1 className="text-[28px] font-bold text-ink tracking-tight">Student profile</h1>
-          <p className="text-[14px] text-muted mt-1">
-            Verified evaluator credentials and session metadata for this Semester 3 prototype.
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-pill bg-brand-pale text-brand text-[12px] font-bold uppercase tracking-wider mb-2 border border-brand/20">
+            <Sparkles className="w-3.5 h-3.5 text-brand" />
+            <span>Evaluator Profile</span>
+          </div>
+          <h1 className="text-[28px] sm:text-[32px] font-bold text-ink tracking-tight">Account overview</h1>
+          <p className="text-[14px] text-muted mt-1 leading-relaxed">
+            Verified student evaluator credentials and session metadata for this Semester 3 prototype.
           </p>
         </div>
 
-        <div className="bg-surface rounded-card shadow-card border border-border p-6 sm:p-8 space-y-6">
+        <div className="bg-surface rounded-3xl shadow-card border border-border p-6 sm:p-8 space-y-6">
           
           {/* User Header */}
           <div className="flex items-center gap-4 pb-6 border-b border-border">
-            <div className="w-16 h-16 rounded-full bg-brand-subtle text-brand flex items-center justify-center font-bold text-2xl border border-brand/20 shadow-2xs">
+            <div className="w-16 h-16 rounded-full bg-brand-pale text-brand flex items-center justify-center font-bold text-2xl border-2 border-brand/30 shadow-subtle">
               {user.full_name.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h2 className="text-[20px] font-bold text-ink">{user.full_name}</h2>
+              <h2 className="text-[20px] font-bold text-ink flex items-center gap-2">
+                <span>{user.full_name}</span>
+                <Heart className="w-4 h-4 text-brand fill-brand/20" />
+              </h2>
               <div className="flex items-center gap-2 mt-1">
                 <span
                   className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-pill border ${
                     user.role === 'admin'
                       ? 'bg-amber-50 text-warning border-warning/30'
-                      : 'bg-brand-subtle text-brand border-brand/20'
+                      : 'bg-brand-pale text-brand border-brand/20'
                   }`}
                 >
                   {user.role} role
@@ -61,25 +68,25 @@ export function ProfilePage() {
 
           {/* User Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 bg-page rounded-control border border-border/80">
+            <div className="p-4 bg-page rounded-2xl border border-border/80">
               <div className="flex items-center gap-2 text-[11.5px] font-bold text-muted uppercase tracking-wider mb-1">
-                <Mail className="w-3.5 h-3.5" />
+                <Mail className="w-3.5 h-3.5 text-brand" />
                 Email Address
               </div>
               <div className="text-[14.5px] font-medium text-ink break-all">{user.email}</div>
             </div>
 
-            <div className="p-4 bg-page rounded-control border border-border/80">
+            <div className="p-4 bg-page rounded-2xl border border-border/80">
               <div className="flex items-center gap-2 text-[11.5px] font-bold text-muted uppercase tracking-wider mb-1">
-                <Calendar className="w-3.5 h-3.5" />
+                <Calendar className="w-3.5 h-3.5 text-brand" />
                 Account Created
               </div>
               <div className="text-[14.5px] font-medium text-ink">{formattedDate}</div>
             </div>
 
-            <div className="p-4 bg-page rounded-control border border-border/80">
+            <div className="p-4 bg-page rounded-2xl border border-border/80">
               <div className="flex items-center gap-2 text-[11.5px] font-bold text-muted uppercase tracking-wider mb-1">
-                <ShieldCheck className="w-3.5 h-3.5" />
+                <ShieldCheck className="w-3.5 h-3.5 text-brand" />
                 Access Level
               </div>
               <div className="text-[14px] font-medium text-ink">
@@ -89,9 +96,9 @@ export function ProfilePage() {
               </div>
             </div>
 
-            <div className="p-4 bg-page rounded-control border border-border/80">
+            <div className="p-4 bg-page rounded-2xl border border-border/80">
               <div className="flex items-center gap-2 text-[11.5px] font-bold text-muted uppercase tracking-wider mb-1">
-                <User className="w-3.5 h-3.5" />
+                <User className="w-3.5 h-3.5 text-brand" />
                 Session Type
               </div>
               <div className="text-[14px] font-medium text-ink font-mono">JWT Bearer Token</div>
@@ -103,7 +110,7 @@ export function ProfilePage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-medium text-error hover:bg-error-subtle rounded-control border border-error/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold text-error hover:bg-error-subtle rounded-pill border border-error/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error"
             >
               <LogOut className="w-4 h-4" />
               Sign out of session

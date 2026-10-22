@@ -4,7 +4,7 @@ import { useAuth } from '../lib/auth';
 import { apiFetch, ApiError } from '../lib/api';
 import { PageShell } from '../components/PageShell';
 import { FormField } from '../components/FormField';
-import { Eye, EyeOff, Lock, LogIn, Database, Star, CheckCircle2, ChevronDown } from 'lucide-react';
+import { Eye, EyeOff, Lock, LogIn, Heart, Sparkles, CheckCircle2, ChevronDown } from 'lucide-react';
 
 interface LoginResponse {
   access_token: string;
@@ -76,76 +76,75 @@ export function LoginPage() {
       <div className="min-h-[calc(100vh-160px)] flex items-center justify-center py-6 sm:py-10">
         <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Academic Brand Context (Hidden on small mobile, visible on desktop) */}
+          {/* Left Column: Boutique Atmosphere & Imagery */}
           <div className="lg:col-span-6 space-y-6 lg:pr-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-brand-subtle text-brand border border-brand/15 text-[12px] font-bold tracking-wide uppercase">
-              <span>Academic Prototype</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill bg-brand-pale text-brand border border-brand/20 text-[12px] font-bold tracking-wide uppercase">
+              <Sparkles className="w-3.5 h-3.5 text-brand" />
+              <span>Blush & Bloom</span>
               <span>·</span>
-              <span>Semester 3</span>
+              <span>Semester 3 Prototype</span>
             </div>
 
-            <h1 className="text-[30px] sm:text-[38px] font-extrabold text-ink tracking-tight leading-[1.2]">
-              Understand product feedback with structured review data.
+            <h1 className="text-[32px] sm:text-[40px] font-extrabold text-ink tracking-tight leading-[1.18]">
+              Welcome back, <br />
+              <span className="text-brand">lovely!</span>
             </h1>
 
             <p className="text-[15px] sm:text-[16px] text-muted leading-relaxed">
-              ReviewLens provides reliable review collection, relational PostgreSQL persistence, and descriptive statistical analytics.
+              Sign in to share your thoughts on your favorite little finds and contribute honest reviews to our academic database.
             </p>
 
-            {/* 3 Academic Feature Highlights */}
-            <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-control bg-surface border border-border flex items-center justify-center text-brand flex-shrink-0 shadow-2xs">
-                  <Star className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-bold text-ink">Structured Ratings Collection</h2>
-                  <p className="text-[13px] text-muted leading-relaxed">
-                    Students submit 1 to 5 stars with strict one-review-per-product database constraints.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-control bg-surface border border-border flex items-center justify-center text-brand flex-shrink-0 shadow-2xs">
-                  <Database className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-bold text-ink">Relational Persistence & Preprocessing</h2>
-                  <p className="text-[13px] text-muted leading-relaxed">
-                    Original and deterministically cleaned review text stored for future NLP research.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-control bg-surface border border-border flex items-center justify-center text-brand flex-shrink-0 shadow-2xs">
-                  <CheckCircle2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-bold text-ink">Honest Academic Boundary</h2>
-                  <p className="text-[13px] text-muted leading-relaxed">
-                    Descriptive statistics only; sentiment classification and fake detection scheduled for Sem 4–6.
-                  </p>
-                </div>
+            {/* Visual Card */}
+            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-brand/20 shadow-card group">
+              <img
+                src="/images/storefront/hero-lifestyle-collection.webp"
+                alt="Blush & Bloom lifestyle collection"
+                className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src.endsWith('.webp')) {
+                    target.src = '/images/storefront/hero-lifestyle-collection.jpg';
+                  }
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-4 right-4 text-white text-[12.5px] flex items-center justify-between">
+                <span className="font-medium flex items-center gap-1.5">
+                  <Heart className="w-3.5 h-3.5 fill-brand-baby text-brand-baby" />
+                  A little world of lovely things
+                </span>
+                <span className="text-white/80 font-mono text-[11px]">PostgreSQL backed</span>
               </div>
             </div>
+
+            {/* Discreet Traceability Note */}
+            <p className="text-[12px] text-muted/80">
+              Blush & Bloom — Powered by ReviewLens | Semester 3 Academic Prototype
+            </p>
           </div>
 
           {/* Right Column: Authentication Card */}
           <div className="lg:col-span-6 w-full max-w-[440px] mx-auto">
-            <div className="bg-surface rounded-card shadow-card border border-border p-6 sm:p-8 transition-all">
+            <div className="bg-surface rounded-3xl shadow-card border border-border p-6 sm:p-8 transition-all">
               <div className="mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-brand-pale text-brand flex items-center justify-center">
+                    <Heart className="w-4 h-4 fill-brand/30 text-brand" />
+                  </div>
+                  <span className="text-[13px] font-bold text-brand uppercase tracking-wider">
+                    Blush & Bloom
+                  </span>
+                </div>
                 <h2 className="text-[24px] font-bold text-ink tracking-tight">Sign in</h2>
                 <p className="text-[13px] text-muted mt-1">
-                  Enter your university student or administrator account credentials.
+                  Enter your student or administrator credentials.
                 </p>
               </div>
 
               {registeredSuccess && (
                 <div
                   role="status"
-                  className="mb-5 p-3.5 rounded-control bg-success-subtle border border-success/30 text-success text-[13px] flex items-center gap-2 font-medium"
+                  className="mb-5 p-3.5 rounded-xl bg-success-subtle border border-success/30 text-success text-[13px] flex items-center gap-2 font-medium"
                 >
                   <CheckCircle2 className="w-4 h-4 text-success flex-shrink-0" />
                   <span>Account registered successfully! You can now sign in.</span>
@@ -156,7 +155,7 @@ export function LoginPage() {
                 <div
                   role="alert"
                   tabIndex={-1}
-                  className="mb-5 p-3.5 rounded-control bg-error-subtle border border-error/30 text-error text-[13px] flex items-start gap-2 font-medium"
+                  className="mb-5 p-3.5 rounded-xl bg-error-subtle border border-error/30 text-error text-[13px] flex items-start gap-2 font-medium"
                 >
                   <span className="text-[15px] leading-tight" aria-hidden="true">⚠</span>
                   <span>{generalError}</span>
@@ -201,66 +200,66 @@ export function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading || !email.trim() || !password}
-                  className="w-full h-[44px] mt-2 inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand-hover text-white text-[14.5px] font-semibold rounded-control shadow-subtle hover:shadow-card transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-[46px] mt-2 inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand-hover text-white text-[14.5px] font-bold rounded-pill shadow-subtle hover:shadow-card transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span>Signing in...</span>
                   ) : (
                     <>
                       <LogIn className="w-4 h-4" />
-                      Sign in to ReviewLens
+                      Sign in to Blush & Bloom
                     </>
                   )}
                 </button>
               </form>
 
               <div className="mt-6 text-center text-[13px] text-muted">
-                Need a new student reviewer account?{' '}
+                Need a new student evaluator account?{' '}
                 <Link to="/register" className="text-brand font-semibold hover:underline">
                   Create account
                 </Link>
               </div>
 
-              {/* Discreet Collapsible Demonstration Helper */}
+              {/* Discreet Collapsible Demo Helper */}
               <div className="mt-6 pt-5 border-t border-border">
                 <details className="group">
                   <summary className="flex items-center justify-between text-[12px] font-semibold text-muted hover:text-ink cursor-pointer list-none select-none py-1">
-                    <span className="flex items-center gap-1.5 uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5 uppercase tracking-wider text-brand">
                       <Lock className="w-3.5 h-3.5" />
-                      Demo Credentials (Click to view)
+                      Demo Credentials (Click to autofill)
                     </span>
-                    <ChevronDown className="w-3.5 h-3.5 transition-transform group-open:rotate-180" />
+                    <ChevronDown className="w-3.5 h-3.5 transition-transform group-open:rotate-180 text-brand" />
                   </summary>
 
                   <div className="mt-3 pt-2 grid grid-cols-2 gap-2 text-[12px]">
                     <button
                       type="button"
                       onClick={() => handleDemoFill('student1@reviewlens.edu', 'Student@ReviewLens1')}
-                      className="text-left p-2.5 rounded-control border border-border bg-page hover:bg-surface hover:border-brand/40 transition-colors"
+                      className="text-left p-2.5 rounded-xl border border-border bg-page hover:bg-brand-pale hover:border-brand/40 transition-colors"
                     >
-                      <div className="font-semibold text-ink">Student 1</div>
+                      <div className="font-bold text-ink">Student 1</div>
                       <div className="text-[11px] text-muted truncate">Aarav Sharma</div>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDemoFill('student2@reviewlens.edu', 'Student@ReviewLens2')}
-                      className="text-left p-2.5 rounded-control border border-border bg-page hover:bg-surface hover:border-brand/40 transition-colors"
+                      className="text-left p-2.5 rounded-xl border border-border bg-page hover:bg-brand-pale hover:border-brand/40 transition-colors"
                     >
-                      <div className="font-semibold text-ink">Student 2</div>
+                      <div className="font-bold text-ink">Student 2</div>
                       <div className="text-[11px] text-muted truncate">Riddhima Patel</div>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDemoFill('student3@reviewlens.edu', 'Student@ReviewLens3')}
-                      className="text-left p-2.5 rounded-control border border-border bg-page hover:bg-surface hover:border-brand/40 transition-colors"
+                      className="text-left p-2.5 rounded-xl border border-border bg-page hover:bg-brand-pale hover:border-brand/40 transition-colors"
                     >
-                      <div className="font-semibold text-ink">Student 3</div>
+                      <div className="font-bold text-ink">Student 3</div>
                       <div className="text-[11px] text-muted truncate">Karan Verma</div>
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDemoFill('admin@reviewlens.edu', 'Admin@ReviewLens2026')}
-                      className="text-left p-2.5 rounded-control border border-brand/20 bg-brand-subtle/50 hover:bg-brand-subtle transition-colors"
+                      className="text-left p-2.5 rounded-xl border border-brand/20 bg-brand-pale text-brand hover:bg-brand-pale/80 transition-colors"
                     >
                       <div className="font-bold text-brand">Administrator</div>
                       <div className="text-[11px] text-muted truncate">admin@...</div>

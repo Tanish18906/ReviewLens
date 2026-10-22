@@ -10,7 +10,8 @@
 
 ReviewLens is a self-contained web platform designed to execute 100% locally on a presentation laptop without external cloud or internet requirements.
 
-- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS with strict design tokens, React Router, Recharts, and Lucide Icons.
+- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS with Blush & Bloom baby-pink boutique design tokens, React Router, Recharts, and Lucide Icons.
+- **Storefront Identity:** **Blush & Bloom** (*"A little world of lovely things"*) — kawaii lifestyle storefront showcasing 16 curated products across Plush Toys, Fragrances, Beauty & Makeup, and Accessories & Gifts.
 - **Backend:** FastAPI (Python 3.11+), Pydantic v2 schemas, SQLAlchemy 2.x ORM, PyJWT bearer auth, and Argon2 password hashing.
 - **Database:** Local PostgreSQL (`reviewlens_sem3`) with ACID transactions, `CHECK(rating >= 1 AND rating <= 5)`, and `UNIQUE(user_id, product_id)` constraints.
 - **NLP Preprocessing:** Deterministic text normalization service stripping URLs, lowercasing, converting punctuation to spaces, and removing documented English stop words.
@@ -87,7 +88,7 @@ pip install -r requirements.txt
 # Configure environment variables (defaults connect to localhost:5432)
 cp .env.example .env
 
-# Reset and seed database with 1 admin, 6 students, 10 products, 49 reviews
+# Reset and seed database with 1 admin, 6 students, 16 products, 68 reviews
 python scripts/seed_demo.py --reset
 
 # Import 100 UCI Amazon review-text sentences

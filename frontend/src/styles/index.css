@@ -3,44 +3,52 @@
 @tailwind utilities;
 
 :root {
-  /* Editorial Academic Palette (from writing-block.md) */
-  --brand: #4056D6;
-  --brand-hover: #3447B8;
-  --brand-subtle: #EEF1FF;
-  --ink: #202B3D;
-  --muted: #66758C;
-  --page: #F7F9FC;
-  --surface: #FFFFFF;
-  --border: #E3E9F2;
-  --border-focus: #4056D6;
-  --success: #16845B;
-  --success-subtle: #EBF8F2;
+  /* Blush & Bloom Boutique Baby-Pink Palette (from migration.md) */
+  --brand: #D96B93;               /* Stronger pink for interactive CTA buttons, focus */
+  --brand-hover: #BF517C;         /* Hover state */
+  --brand-subtle: #FBE2EB;        /* Powder pink */
+  --brand-baby: #F4AFC4;          /* Primary baby pink */
+  --brand-pale: #FFF0F5;          /* Pale blush */
+  --lavender: #F0E8FA;            /* Soft lavender accent */
+  --ink: #382B35;                 /* Dark plum text (readable, high contrast) */
+  --muted: #786772;               /* Secondary muted text */
+  --page: #FFFAFC;                /* Cream background */
+  --surface: #FFFFFF;             /* White surface */
+  --border: #F0DCE5;              /* Light border */
+  --border-focus: #D96B93;        /* Focus border */
+  --success: #287B60;             /* Success green */
+  --success-subtle: #EBF7F2;      /* Pale success */
   --warning: #B96A15;
-  --warning-subtle: #FDF6EE;
-  --error: #C63737;
-  --error-subtle: #FDF1F1;
-  --chart: #4056D6;
+  --warning-subtle: #FFF7EE;
+  --error: #BC3F50;               /* Error red */
+  --error-subtle: #FDF0F2;        /* Pale error */
+  --chart: #D96B93;               /* Recharts pink */
+  --chart-subtle: #F4AFC4;
 
-  /* Geometry Tokens */
-  --radius-card: 14px;
-  --radius-control: 10px;
+  /* Geometry Tokens (14–18px border radius, soft shadows) */
+  --radius-card: 16px;
+  --radius-control: 12px;
   --radius-pill: 9999px;
-  --shadow-subtle: 0 1px 3px rgba(32, 43, 61, 0.04), 0 1px 2px rgba(32, 43, 61, 0.02);
-  --shadow-card: 0 2px 12px rgba(32, 43, 61, 0.05), 0 1px 3px rgba(32, 43, 61, 0.03);
-  --shadow-elevated: 0 8px 24px rgba(32, 43, 61, 0.08), 0 2px 6px rgba(32, 43, 61, 0.04);
-  --container: 1200px;
+  --shadow-subtle: 0 2px 8px rgba(56, 43, 53, 0.04), 0 1px 2px rgba(56, 43, 53, 0.02);
+  --shadow-card: 0 4px 18px rgba(217, 107, 147, 0.08), 0 1px 4px rgba(56, 43, 53, 0.03);
+  --shadow-elevated: 0 12px 32px rgba(217, 107, 147, 0.12), 0 2px 8px rgba(56, 43, 53, 0.04);
+  --container: 1240px;
   --admin-sidebar: 232px;
 }
 
 body {
   background-color: var(--page);
   color: var(--ink);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'DM Sans', 'Nunito', Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
   line-height: 1.6;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Nunito', 'DM Sans', Inter, system-ui, sans-serif;
 }
 
 /* Accessible focus ring on all interactive elements */

@@ -38,8 +38,8 @@ def test_admin_overview_success():
 
     # Verify 4 KPIs
     assert data["total_users"] >= 7
-    assert data["total_products"] == 10
-    assert data["total_reviews"] >= 40
+    assert data["total_products"] == 16
+    assert data["total_reviews"] >= 60
     assert data["average_rating"] is not None
     assert 1.0 <= data["average_rating"] <= 5.0
 
@@ -92,10 +92,10 @@ def test_analytics_updates_after_new_review():
     student_token = student_login.json()["access_token"]
     headers_student = {"Authorization": f"Bearer {student_token}"}
 
-    # 3. Post a 5-star review on ultrawide-desk-mat
-    client.post("/api/products/ultrawide-desk-mat/reviews", json={
+    # 3. Post a 5-star review on strawberry-bunny-plush
+    client.post("/api/products/strawberry-bunny-plush/reviews", json={
         "rating": 5,
-        "review_text": "Excellent quality desk mat that improved my work area organization."
+        "review_text": "Super soft strawberry plushie that makes studying so much cozier and calming."
     }, headers=headers_student)
 
     # 4. Refetch admin overview - numbers must update from DB!
@@ -110,10 +110,10 @@ def test_analytics_updates_after_new_review():
 
 
 def test_text_cleaning_deterministic():
-    raw1 = "Great headphones! Check http://example.com for details... REALLY LOVED THEM."
-    raw2 = "Great headphones! Check http://example.com for details... REALLY LOVED THEM."
+    raw1 = "Great strawberry plush! Check http://example.com for details... REALLY LOVED IT."
+    raw2 = "Great strawberry plush! Check http://example.com for details... REALLY LOVED IT."
     cleaned1 = clean_text(raw1)
     cleaned2 = clean_text(raw2)
     assert cleaned1 == cleaned2
     assert "http" not in cleaned1
-    assert "great headphones" in cleaned1
+    assert "great strawberry plush" in cleaned1

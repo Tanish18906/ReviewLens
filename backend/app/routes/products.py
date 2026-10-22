@@ -27,7 +27,7 @@ def list_products(
     q: Optional[str] = Query(None, description="Search term for name or description"),
     category: Optional[str] = Query(None, description="Filter by category"),
     sort: Optional[str] = Query("name_asc", description="Sort order: name_asc, rating_desc, reviews_desc"),
-    limit: int = Query(12, ge=1, le=100),
+    limit: int = Query(24, ge=1, le=100),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
 ):

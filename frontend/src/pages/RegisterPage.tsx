@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { apiFetch, ApiError } from '../lib/api';
 import { PageShell } from '../components/PageShell';
 import { FormField } from '../components/FormField';
-import { Eye, EyeOff, UserPlus, CheckCircle2, Star, Database, ShieldCheck } from 'lucide-react';
+import { Eye, EyeOff, UserPlus, Heart, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -76,76 +76,75 @@ export function RegisterPage() {
       <div className="min-h-[calc(100vh-160px)] flex items-center justify-center py-6 sm:py-10">
         <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Academic Brand Context */}
+          {/* Left Column: Boutique Atmosphere & Imagery */}
           <div className="lg:col-span-6 space-y-6 lg:pr-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-brand-subtle text-brand border border-brand/15 text-[12px] font-bold tracking-wide uppercase">
-              <span>Academic Prototype</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill bg-brand-pale text-brand border border-brand/20 text-[12px] font-bold tracking-wide uppercase">
+              <Sparkles className="w-3.5 h-3.5 text-brand" />
+              <span>Blush & Bloom</span>
               <span>·</span>
-              <span>Semester 3</span>
+              <span>Semester 3 Prototype</span>
             </div>
 
-            <h1 className="text-[30px] sm:text-[38px] font-extrabold text-ink tracking-tight leading-[1.2]">
-              Contribute to structured review research.
+            <h1 className="text-[32px] sm:text-[40px] font-extrabold text-ink tracking-tight leading-[1.18]">
+              Join our <br />
+              <span className="text-brand">little world.</span>
             </h1>
 
             <p className="text-[15px] sm:text-[16px] text-muted leading-relaxed">
-              Join ReviewLens as a verified student evaluator. Submit genuine ratings and structured textual reviews to build our academic corpus.
+              Create an account to explore and review lovely everyday finds. Share thoughtful evaluations and contribute to student research.
             </p>
 
-            {/* 3 Academic Feature Highlights */}
-            <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-control bg-surface border border-border flex items-center justify-center text-brand flex-shrink-0 shadow-2xs">
-                  <Star className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-bold text-ink">Single Review Constraint</h2>
-                  <p className="text-[13px] text-muted leading-relaxed">
-                    Database-enforced uniqueness prevents duplicate ballot bias per user per product.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-control bg-surface border border-border flex items-center justify-center text-brand flex-shrink-0 shadow-2xs">
-                  <Database className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-bold text-ink">Verbatim & Cleaned Preprocessing</h2>
-                  <p className="text-[13px] text-muted leading-relaxed">
-                    Submitted text is stored with deterministic cleaning pipeline outputs for subsequent NLP phases.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-control bg-surface border border-border flex items-center justify-center text-brand flex-shrink-0 shadow-2xs">
-                  <ShieldCheck className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-bold text-ink">Strict Semester 3 Scope</h2>
-                  <p className="text-[13px] text-muted leading-relaxed">
-                    Honest descriptive statistics only—no black-box sentiment classification or fake review models.
-                  </p>
-                </div>
+            {/* Visual Card */}
+            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-brand/20 shadow-card group">
+              <img
+                src="/images/storefront/category-plush-toys.webp"
+                alt="Plush collection at Blush & Bloom"
+                className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src.endsWith('.webp')) {
+                    target.src = '/images/storefront/category-plush-toys.jpg';
+                  }
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-4 right-4 text-white text-[12.5px] flex items-center justify-between">
+                <span className="font-medium flex items-center gap-1.5">
+                  <Heart className="w-3.5 h-3.5 fill-brand-baby text-brand-baby" />
+                  Cute plushies, sweet scents & essentials
+                </span>
+                <span className="text-white/80 font-mono text-[11px]">Academic Prototype</span>
               </div>
             </div>
+
+            {/* Traceability */}
+            <p className="text-[12px] text-muted/80">
+              Blush & Bloom — Powered by ReviewLens | Semester 3 Academic Prototype
+            </p>
           </div>
 
           {/* Right Column: Registration Card */}
           <div className="lg:col-span-6 w-full max-w-[440px] mx-auto">
-            <div className="bg-surface rounded-card shadow-card border border-border p-6 sm:p-8 transition-all">
+            <div className="bg-surface rounded-3xl shadow-card border border-border p-6 sm:p-8 transition-all">
               <div className="mb-6">
-                <h2 className="text-[24px] font-bold text-ink tracking-tight">Create student account</h2>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-brand-pale text-brand flex items-center justify-center">
+                    <Heart className="w-4 h-4 fill-brand/30 text-brand" />
+                  </div>
+                  <span className="text-[13px] font-bold text-brand uppercase tracking-wider">
+                    Blush & Bloom
+                  </span>
+                </div>
+                <h2 className="text-[24px] font-bold text-ink tracking-tight">Create account</h2>
                 <p className="text-[13px] text-muted mt-1">
-                  Enter your details to register as a student reviewer.
+                  Register as a student evaluator to post reviews.
                 </p>
               </div>
 
               {successMessage && (
                 <div
                   role="status"
-                  className="mb-5 p-3.5 rounded-control bg-success-subtle border border-success/30 text-success text-[13px] flex items-center gap-2 font-medium"
+                  className="mb-5 p-3.5 rounded-xl bg-success-subtle border border-success/30 text-success text-[13px] flex items-center gap-2 font-medium"
                 >
                   <CheckCircle2 className="w-4 h-4 text-success flex-shrink-0" />
                   <span>{successMessage}</span>
@@ -156,7 +155,7 @@ export function RegisterPage() {
                 <div
                   role="alert"
                   tabIndex={-1}
-                  className="mb-5 p-3.5 rounded-control bg-error-subtle border border-error/30 text-error text-[13px] flex items-start gap-2 font-medium"
+                  className="mb-5 p-3.5 rounded-xl bg-error-subtle border border-error/30 text-error text-[13px] flex items-start gap-2 font-medium"
                 >
                   <span className="text-[15px] leading-tight" aria-hidden="true">⚠</span>
                   <span>{generalError}</span>
@@ -167,48 +166,55 @@ export function RegisterPage() {
                 <FormField
                   label="Full name"
                   type="text"
-                  id="register-fullname"
+                  id="reg-fullname"
                   name="fullName"
                   required
                   autoComplete="name"
                   value={fullName}
                   onChange={(e) => {
                     setFullName(e.target.value);
-                    if (fieldErrors.fullName) setFieldErrors({ ...fieldErrors, fullName: '' });
+                    if (fieldErrors.fullName) {
+                      setFieldErrors({ ...fieldErrors, fullName: '' });
+                    }
                   }}
                   error={fieldErrors.fullName}
-                  placeholder="e.g. Riddhima Patel"
+                  placeholder="Riddhima Patel"
                 />
 
                 <FormField
                   label="Email address"
                   type="email"
-                  id="register-email"
+                  id="reg-email"
                   name="email"
                   required
                   autoComplete="email"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
-                    if (fieldErrors.email) setFieldErrors({ ...fieldErrors, email: '' });
+                    if (fieldErrors.email) {
+                      setFieldErrors({ ...fieldErrors, email: '' });
+                    }
                   }}
                   error={fieldErrors.email}
                   placeholder="student@reviewlens.edu"
                 />
 
                 <FormField
-                  label="Password (min 8 characters)"
+                  label="Password"
                   type={showPassword ? 'text' : 'password'}
-                  id="register-password"
+                  id="reg-password"
                   name="password"
                   required
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
-                    if (fieldErrors.password) setFieldErrors({ ...fieldErrors, password: '' });
+                    if (fieldErrors.password) {
+                      setFieldErrors({ ...fieldErrors, password: '' });
+                    }
                   }}
                   error={fieldErrors.password}
+                  helperText="Minimum 8 characters"
                   placeholder="••••••••"
                   rightElement={
                     <button
@@ -225,14 +231,14 @@ export function RegisterPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-[44px] mt-2 inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand-hover text-white text-[14.5px] font-semibold rounded-control shadow-subtle hover:shadow-card transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-[46px] mt-2 inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand-hover text-white text-[14.5px] font-bold rounded-pill shadow-subtle hover:shadow-card transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span>Creating account...</span>
                   ) : (
                     <>
                       <UserPlus className="w-4 h-4" />
-                      Register Account
+                      Create account
                     </>
                   )}
                 </button>
@@ -244,6 +250,7 @@ export function RegisterPage() {
                   Sign in
                 </Link>
               </div>
+
             </div>
           </div>
 
