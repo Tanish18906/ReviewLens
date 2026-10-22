@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg-smart-led-desk-lamp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-smart-led-desk-lamp)" />
+  <!-- Category Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="110" height="32" rx="16" fill="#FFFFFF" opacity="0.9" />
+    <text x="55" y="21" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#66758A" text-anchor="middle" letter-spacing="0.5">HOME OFFICE</text>
+  </g>
+  <!-- Product Illustration -->
+  
+        <!-- Base -->
+        <rect x="340" y="400" width="120" height="20" rx="10" fill="#1E293B"/>
+        <circle cx="400" cy="410" r="5" fill="#38BDF8"/>
+        <!-- Stem -->
+        <path d="M 400 400 L 400 200 C 400 130, 480 130, 520 180" fill="none" stroke="#475569" stroke-width="16" stroke-linecap="round"/>
+        <!-- Light head -->
+        <rect x="470" y="170" width="140" height="26" rx="8" fill="#1E293B" transform="rotate(20 540 183)"/>
+        <!-- Light beam -->
+        <polygon points="500,200 600,240 680,420 420,420" fill="#FBBF24" opacity="0.12"/>
+    
+  <!-- Title watermark -->
+  <text x="400" y="540" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#172235" text-anchor="middle" opacity="0.85">LED Task Lamp</text>
+</svg>

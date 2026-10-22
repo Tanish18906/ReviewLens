@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg-ergonomic-office-chair" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-ergonomic-office-chair)" />
+  <!-- Category Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="110" height="32" rx="16" fill="#FFFFFF" opacity="0.9" />
+    <text x="55" y="21" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#66758A" text-anchor="middle" letter-spacing="0.5">HOME OFFICE</text>
+  </g>
+  <!-- Product Illustration -->
+  
+        <!-- Backrest -->
+        <rect x="330" y="120" width="140" height="180" rx="24" fill="#334155"/>
+        <rect x="345" y="135" width="110" height="150" rx="16" fill="#1E293B"/>
+        <!-- Headrest -->
+        <rect x="350" y="70" width="100" height="40" rx="12" fill="#475569"/>
+        <!-- Seat -->
+        <rect x="300" y="310" width="200" height="45" rx="12" fill="#172235"/>
+        <!-- Stem & Base -->
+        <rect x="390" y="355" width="20" height="90" fill="#64748B"/>
+        <path d="M 300 480 L 400 445 L 500 480" stroke="#475569" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="300" cy="485" r="8" fill="#172235"/>
+        <circle cx="500" cy="485" r="8" fill="#172235"/>
+    
+  <!-- Title watermark -->
+  <text x="400" y="540" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#172235" text-anchor="middle" opacity="0.85">Mesh Desk Chair</text>
+</svg>

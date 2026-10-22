@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #172235;
+  --muted: #66758A;
+  --brand: #3559D9;
+  --brand-hover: #2947B4;
+  --page: #F7F9FC;
+  --surface: #FFFFFF;
+  --border: #E5EAF1;
+  --success: #16794C;
+  --warning: #B45309;
+  --error: #C53030;
+  --chart: #5575E8;
+  --radius-card: 14px;
+  --radius-control: 10px;
+  --shadow-card: 0 3px 18px rgba(23, 34, 53, 0.04);
+  --container: 1160px;
+  --admin-sidebar: 232px;
+}
+
+body {
+  background-color: var(--page);
+  color: var(--ink);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}

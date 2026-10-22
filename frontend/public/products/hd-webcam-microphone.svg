@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg-hd-webcam-microphone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-hd-webcam-microphone)" />
+  <!-- Category Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="110" height="32" rx="16" fill="#FFFFFF" opacity="0.9" />
+    <text x="55" y="21" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#66758A" text-anchor="middle" letter-spacing="0.5">COMPUTING</text>
+  </g>
+  <!-- Product Illustration -->
+  
+        <!-- Camera unit -->
+        <rect x="280" y="210" width="240" height="100" rx="26" fill="#1E293B"/>
+        <!-- Lens outer -->
+        <circle cx="400" cy="260" r="34" fill="#0F172A"/>
+        <circle cx="400" cy="260" r="26" fill="#334155"/>
+        <circle cx="400" cy="260" r="16" fill="#3B82F6"/>
+        <circle cx="395" cy="255" r="5" fill="#93C5FD"/>
+        <!-- Dual mics -->
+        <circle cx="320" cy="260" r="5" fill="#64748B"/>
+        <circle cx="480" cy="260" r="5" fill="#64748B"/>
+        <!-- Mount clip -->
+        <rect x="385" y="310" width="30" height="40" fill="#475569"/>
+        <path d="M 370 350 L 430 350 L 450 400" fill="none" stroke="#334155" stroke-width="14" stroke-linecap="round"/>
+    
+  <!-- Title watermark -->
+  <text x="400" y="540" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#172235" text-anchor="middle" opacity="0.85">1080p HD Webcam</text>
+</svg>

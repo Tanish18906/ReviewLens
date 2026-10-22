@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg-mechanical-keyboard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-mechanical-keyboard)" />
+  <!-- Category Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="110" height="32" rx="16" fill="#FFFFFF" opacity="0.9" />
+    <text x="55" y="21" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#66758A" text-anchor="middle" letter-spacing="0.5">COMPUTING</text>
+  </g>
+  <!-- Product Illustration -->
+  
+        <rect x="180" y="200" width="440" height="220" rx="16" fill="#172235"/>
+        <rect x="200" y="220" width="400" height="180" rx="10" fill="#24334B"/>
+        <!-- key grid -->
+        <g fill="#3559D9">
+            <rect x="220" y="240" width="40" height="35" rx="6"/>
+            <rect x="270" y="240" width="40" height="35" rx="6"/>
+            <rect x="320" y="240" width="40" height="35" rx="6"/>
+            <rect x="370" y="240" width="40" height="35" rx="6"/>
+            <rect x="420" y="240" width="40" height="35" rx="6"/>
+            <rect x="470" y="240" width="40" height="35" rx="6"/>
+            <rect x="520" y="240" width="60" height="35" rx="6" fill="#5575E8"/>
+            <rect x="220" y="290" width="55" height="35" rx="6" fill="#5575E8"/>
+            <rect x="285" y="290" width="40" height="35" rx="6"/>
+            <rect x="335" y="290" width="40" height="35" rx="6"/>
+            <rect x="385" y="290" width="40" height="35" rx="6"/>
+            <rect x="435" y="290" width="40" height="35" rx="6"/>
+            <rect x="485" y="290" width="95" height="35" rx="6"/>
+            <rect x="220" y="340" width="70" height="35" rx="6" fill="#5575E8"/>
+            <rect x="300" y="340" width="200" height="35" rx="6" fill="#60A5FA"/>
+            <rect x="510" y="340" width="70" height="35" rx="6" fill="#5575E8"/>
+        </g>
+    
+  <!-- Title watermark -->
+  <text x="400" y="540" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#172235" text-anchor="middle" opacity="0.85">Tactile Keyboard</text>
+</svg>

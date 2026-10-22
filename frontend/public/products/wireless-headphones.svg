@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg-wireless-headphones" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-wireless-headphones)" />
+  <!-- Category Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="110" height="32" rx="16" fill="#FFFFFF" opacity="0.9" />
+    <text x="55" y="21" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#66758A" text-anchor="middle" letter-spacing="0.5">AUDIO</text>
+  </g>
+  <!-- Product Illustration -->
+  
+        <rect x="250" y="240" width="40" height="140" rx="20" fill="#172235"/>
+        <rect x="510" y="240" width="40" height="140" rx="20" fill="#172235"/>
+        <path d="M 270 260 C 270 120, 530 120, 530 260" fill="none" stroke="#172235" stroke-width="32" stroke-linecap="round"/>
+        <path d="M 290 260 C 290 140, 510 140, 510 260" fill="none" stroke="#3559D9" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="270" cy="310" r="45" fill="#3559D9" opacity="0.9"/>
+        <circle cx="530" cy="310" r="45" fill="#3559D9" opacity="0.9"/>
+    
+  <!-- Title watermark -->
+  <text x="400" y="540" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#172235" text-anchor="middle" opacity="0.85">Wireless Headphones</text>
+</svg>

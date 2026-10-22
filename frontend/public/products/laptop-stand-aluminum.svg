@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg-laptop-stand-aluminum" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-laptop-stand-aluminum)" />
+  <!-- Category Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="110" height="32" rx="16" fill="#FFFFFF" opacity="0.9" />
+    <text x="55" y="21" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#66758A" text-anchor="middle" letter-spacing="0.5">ACCESSORIES</text>
+  </g>
+  <!-- Product Illustration -->
+  
+        <!-- Stand arms -->
+        <polygon points="260,390 320,180 340,185 280,395" fill="#64748B"/>
+        <polygon points="540,390 480,180 460,185 520,395" fill="#64748B"/>
+        <!-- Crossbar -->
+        <rect x="290" y="270" width="220" height="20" rx="6" fill="#94A3B8"/>
+        <!-- Base feet -->
+        <rect x="230" y="385" width="130" height="20" rx="8" fill="#475569"/>
+        <rect x="440" y="385" width="130" height="20" rx="8" fill="#475569"/>
+        <!-- Laptop representation -->
+        <polygon points="240,240 560,240 520,360 280,360" fill="#334155" opacity="0.3"/>
+    
+  <!-- Title watermark -->
+  <text x="400" y="540" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#172235" text-anchor="middle" opacity="0.85">Laptop Stand</text>
+</svg>
