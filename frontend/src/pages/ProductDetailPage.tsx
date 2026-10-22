@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
 import { apiFetch, ApiError } from '../lib/api';
@@ -8,10 +8,12 @@ import { ProductCardData } from '../components/ProductCard';
 import {
   ChevronRight,
   MessageSquare,
-  CheckCircle,
+  CheckCircle2,
   AlertCircle,
   Send,
   UserCheck,
+  Star,
+  RefreshCcw,
 } from 'lucide-react';
 
 interface ReviewItem {
@@ -60,7 +62,7 @@ export function ProductDetailPage() {
       setProduct(data);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
-        setProductError("We couldn't find that product.");
+        setProductError("We couldn't find that product in the academic catalog.");
       } else {
         setProductError('Unable to load product details from the local server.');
       }
@@ -79,7 +81,7 @@ export function ProductDetailPage() {
       setReviews(data.items);
       setTotalReviews(data.total);
     } catch {
-      // reviews fail silently or handled
+      // Reviews fail handled gracefully
     } finally {
       setIsLoadingReviews(false);
     }
@@ -92,7 +94,22 @@ export function ProductDetailPage() {
     }
   }, [slug]);
 
-  // Check if current user has already submitted a review
+  // Compute rating distribution from loaded reviews
+  const distribution = useMemo(() => {
+    const counts: { [star: number]: number } = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    reviews.forEach((r) => {
+      if (counts[r.rating] !== undefined) {
+        counts[r.rating] += 1;
+      }
+    });
+    return [5, 4, 3, 2, 1].map((star) => ({
+      star,
+      count: counts[star],
+      percentage: reviews.length > 0 ? Math.round((counts[star] / reviews.length) * 100) : 0,
+    }));
+  }, [reviews]);
+
+  // Check if current authenticated user has already submitted a review
   const userHasReviewed = user ? reviews.some((r) => r.user_id === user.id) : false;
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -126,13 +143,14 @@ export function ProductDetailPage() {
 
       // Refresh product stats and review list from backend
       await Promise.all([fetchProduct(), fetchReviews(0)]);
+      setPage(0);
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) {
         setFormError('You have already submitted a review for this product.');
       } else if (err instanceof ApiError) {
         setFormError(err.detail);
       } else {
-        setFormError('Failed to post review to backend.');
+        setFormError('Failed to post review to backend. Please check server connectivity.');
       }
     } finally {
       setFormSubmitting(false);
@@ -142,7 +160,7 @@ export function ProductDetailPage() {
   if (isLoadingProduct) {
     return (
       <PageShell>
-        <div className="animate-pulse space-y-6 max-w-5xl mx-auto">
+        <div className="animate-pulse space-y-6 max-w-5xl mx-auto py-4">
           <div className="h-4 bg-slate-200 rounded w-1/4" />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-5 aspect-[4/3] bg-slate-200 rounded-card" />
@@ -167,12 +185,22 @@ export function ProductDetailPage() {
           <p className="text-[14px] text-muted mb-6">
             {productError || "We couldn't find that product."}
           </p>
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white font-medium text-[14px] rounded-control hover:bg-brand-hover transition-colors"
-          >
-            Return to catalog
-          </Link>
+          <div className="flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={fetchProduct}
+              className="inline-flex items-center gap-1.5 px-4 py-2 border border-border bg-page hover:bg-surface text-ink font-medium text-[13px] rounded-control transition-colors"
+            >
+              <RefreshCcw className="w-3.5 h-3.5" />
+              Retry
+            </button>
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white font-medium text-[13px] rounded-control hover:bg-brand-hover transition-colors"
+            >
+              Return to catalog
+            </Link>
+          </div>
         </div>
       </PageShell>
     );
@@ -180,20 +208,23 @@ export function ProductDetailPage() {
 
   return (
     <PageShell>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto space-y-8">
+        
         {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-muted mb-6">
-          <Link to="/products" className="hover:text-ink transition-colors font-medium">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-muted">
+          <Link to="/products" className="hover:text-brand transition-colors font-medium">
             Products
           </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-muted/60" />
+          <span className="text-muted">{product.category}</span>
           <ChevronRight className="w-3.5 h-3.5 text-muted/60" />
           <span className="font-semibold text-ink truncate max-w-xs">{product.name}</span>
         </nav>
 
-        {/* 2-Column Hero Section */}
-        <div className="bg-surface rounded-card border border-border shadow-card overflow-hidden p-6 sm:p-8 mb-10">
+        {/* 2-Column Hero Card */}
+        <div className="bg-surface rounded-card border border-border shadow-card overflow-hidden p-6 sm:p-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            {/* Image panel (~42%) */}
+            {/* 4:3 Aspect Image Frame */}
             <div className="md:col-span-5 aspect-[4/3] w-full bg-page rounded-control border border-border overflow-hidden">
               <img
                 src={product.image_path}
@@ -202,10 +233,10 @@ export function ProductDetailPage() {
               />
             </div>
 
-            {/* Details panel (~58%) */}
+            {/* Details panel */}
             <div className="md:col-span-7 flex flex-col justify-between">
               <div>
-                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-muted px-2.5 py-0.5 rounded bg-muted/10 mb-2">
+                <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-muted px-2.5 py-1 rounded-pill bg-page border border-border mb-2.5">
                   {product.category}
                 </span>
                 <h1 className="text-[26px] sm:text-[32px] font-bold text-ink tracking-tight mb-3">
@@ -216,16 +247,16 @@ export function ProductDetailPage() {
                 </p>
               </div>
 
-              {/* Rating & Review Counter */}
+              {/* Rating & Review Summary Footer */}
               <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   {product.average_rating !== null && product.review_count > 0 ? (
                     <div className="flex items-center gap-2">
                       <RatingStars rating={product.average_rating} size="md" />
-                      <span className="text-[18px] font-bold text-ink">
+                      <span className="text-[18px] font-bold text-ink font-mono">
                         {product.average_rating.toFixed(1)}
                       </span>
-                      <span className="text-[14px] text-muted">
+                      <span className="text-[13.5px] text-muted">
                         ({product.review_count} {product.review_count === 1 ? 'review' : 'reviews'})
                       </span>
                     </div>
@@ -234,10 +265,9 @@ export function ProductDetailPage() {
                   )}
                 </div>
 
-                {/* Write a review CTA anchor */}
                 <a
                   href="#review-form"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover shadow-xs transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   Write a review
@@ -247,31 +277,85 @@ export function ProductDetailPage() {
           </div>
         </div>
 
-        {/* Reviews Section */}
-        <div className="space-y-8">
-          <div className="flex items-center justify-between pb-4 border-b border-border">
+        {/* Rating Distribution & Summary Card */}
+        {product.review_count > 0 && (
+          <div className="bg-surface rounded-card border border-border shadow-xs p-6 sm:p-7">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              
+              {/* Score Big Display */}
+              <div className="md:col-span-4 flex flex-col items-center justify-center text-center md:border-r md:border-border md:pr-8">
+                <div className="text-[44px] font-extrabold text-ink font-mono tracking-tight leading-none mb-2">
+                  {product.average_rating !== null ? product.average_rating.toFixed(1) : '—'}
+                </div>
+                <div className="mb-2">
+                  <RatingStars rating={product.average_rating || 0} size="md" />
+                </div>
+                <div className="text-[13px] text-muted font-medium">
+                  Based on {product.review_count} verified {product.review_count === 1 ? 'review' : 'reviews'}
+                </div>
+              </div>
+
+              {/* 5-Bucket Distribution Bars */}
+              <div className="md:col-span-8 space-y-2.5">
+                <div className="text-[13px] font-bold uppercase tracking-wider text-muted mb-2">
+                  Rating Distribution ({reviews.length} shown)
+                </div>
+                {distribution.map(({ star, count, percentage }) => (
+                  <div key={star} className="flex items-center gap-3 text-[13px]">
+                    <span className="w-12 font-medium text-ink flex items-center gap-1 flex-shrink-0">
+                      <span>{star}</span>
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    </span>
+
+                    {/* Progress Bar Track */}
+                    <div className="flex-1 h-2.5 bg-page rounded-full overflow-hidden border border-border/60">
+                      <div
+                        className="h-full bg-brand rounded-full transition-all duration-300"
+                        style={{ width: `${percentage}%` }}
+                        role="progressbar"
+                        aria-valuenow={percentage}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`${star} star rating: ${count} reviews (${percentage}%)`}
+                      />
+                    </div>
+
+                    <span className="w-16 text-right font-mono text-[12px] text-muted flex-shrink-0">
+                      {count} ({percentage}%)
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        )}
+
+        {/* Reviews List Section */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between pb-3 border-b border-border">
             <div>
-              <h2 className="text-[22px] font-bold text-ink">Customer reviews</h2>
+              <h2 className="text-[20px] sm:text-[22px] font-bold text-ink">Evaluator feedback</h2>
               <p className="text-[13px] text-muted mt-0.5">
-                {totalReviews} recorded feedback submissions
+                {totalReviews} recorded feedback submissions in relational database
               </p>
             </div>
           </div>
 
-          {/* Review List */}
           {isLoadingReviews ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="p-5 bg-surface border border-border rounded-card animate-pulse space-y-2">
+                <div key={i} className="p-5 bg-surface border border-border rounded-card animate-pulse space-y-3">
                   <div className="h-4 bg-slate-200 rounded w-1/4" />
                   <div className="h-3 bg-slate-100 rounded w-full" />
+                  <div className="h-3 bg-slate-100 rounded w-3/4" />
                 </div>
               ))}
             </div>
           ) : reviews.length === 0 ? (
-            <div className="p-8 text-center bg-surface border border-border rounded-card">
-              <p className="text-[15px] text-muted">
-                No reviews yet. Be the first to share your experience.
+            <div className="p-8 text-center bg-surface border border-border rounded-card shadow-xs">
+              <p className="text-[14px] text-muted">
+                No reviews yet for this product. Be the first student reviewer to submit feedback below.
               </p>
             </div>
           ) : (
@@ -288,25 +372,25 @@ export function ProductDetailPage() {
                 return (
                   <article
                     key={rev.id}
-                    className="p-5 bg-surface rounded-card border border-border shadow-xs hover:border-border/80 transition-colors"
+                    className="p-5 sm:p-6 bg-surface rounded-card border border-border shadow-xs hover:border-border/80 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-4 mb-2">
-                      <div>
-                        <span className="font-semibold text-ink text-[15px]">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-ink text-[14.5px]">
                           {rev.reviewer_name}
                         </span>
                         {rev.source === 'demo_seed' && (
-                          <span className="ml-2 text-[10px] font-bold text-muted bg-page px-1.5 py-0.5 rounded border border-border/60">
-                            Demo seed
+                          <span className="text-[10px] font-bold text-muted bg-page px-2 py-0.5 rounded-pill border border-border">
+                            Demo Seed
                           </span>
                         )}
                       </div>
-                      <time className="text-[12px] text-muted" dateTime={rev.created_at}>
+                      <time className="text-[12px] text-muted font-medium" dateTime={rev.created_at}>
                         {dateStr}
                       </time>
                     </div>
 
-                    <div className="mb-2">
+                    <div className="mb-3">
                       <RatingStars rating={rev.rating} size="sm" />
                     </div>
 
@@ -317,7 +401,7 @@ export function ProductDetailPage() {
                 );
               })}
 
-              {/* Simple Pagination Controls if > 10 reviews */}
+              {/* Pagination Controls */}
               {totalReviews > PAGE_SIZE && (
                 <div className="flex items-center justify-center gap-3 pt-4">
                   <button
@@ -328,11 +412,11 @@ export function ProductDetailPage() {
                       setPage(prevPage);
                       fetchReviews(prevPage);
                     }}
-                    className="px-3.5 py-1.5 text-xs font-semibold rounded-control border border-border bg-surface hover:bg-page disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-control border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Previous
                   </button>
-                  <span className="text-xs text-muted font-medium">
+                  <span className="text-[12.5px] text-muted font-medium">
                     Page {page + 1} of {Math.ceil(totalReviews / PAGE_SIZE)}
                   </span>
                   <button
@@ -343,7 +427,7 @@ export function ProductDetailPage() {
                       setPage(nextP);
                       fetchReviews(nextP);
                     }}
-                    className="px-3.5 py-1.5 text-xs font-semibold rounded-control border border-border bg-surface hover:bg-page disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-4 py-1.5 text-[12.5px] font-semibold rounded-control border border-border bg-surface hover:bg-page transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Next
                   </button>
@@ -355,46 +439,46 @@ export function ProductDetailPage() {
           {/* Inline Review Submission Section */}
           <div id="review-form" className="pt-6 border-t border-border mt-10">
             <div className="bg-surface rounded-card border border-border p-6 sm:p-8 shadow-card">
-              <h3 className="text-[18px] font-bold text-ink mb-1">Share your review</h3>
+              <h3 className="text-[18px] font-bold text-ink mb-1">Share your evaluation</h3>
               <p className="text-[13px] text-muted mb-6">
-                Your feedback will be stored in our PostgreSQL review database and prepared for NLP processing.
+                Your feedback will be stored in our PostgreSQL review database and prepared for natural language preprocessing.
               </p>
 
               {!isAuthenticated ? (
-                /* Unauthenticated State */
+                /* Unauthenticated Callout */
                 <div className="p-6 bg-page rounded-control border border-border text-center">
                   <p className="text-[14px] text-ink font-medium mb-3">
-                    Sign in to post a review for this product.
+                    Sign in with your student credentials to submit a review for this product.
                   </p>
                   <Link
                     to={`/login?next=/products/${product.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover shadow-xs transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand text-white text-[13px] font-semibold rounded-control hover:bg-brand-hover shadow-subtle hover:shadow-card transition-all"
                   >
-                    Sign in with Student Account
+                    Sign in to ReviewLens
                   </Link>
                 </div>
               ) : userHasReviewed ? (
-                /* Already Reviewed State */
+                /* Already Reviewed Callout */
                 <div className="p-5 bg-page rounded-control border border-border/80 flex items-center gap-3">
-                  <UserCheck className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                  <UserCheck className="w-5 h-5 text-success flex-shrink-0" />
                   <div>
                     <div className="text-[14px] font-semibold text-ink">
-                      You have already reviewed this product.
+                      You have already submitted a review for this product.
                     </div>
-                    <div className="text-[12px] text-muted">
-                      Each student account may submit one review per catalog product in this Semester 3 prototype.
+                    <div className="text-[12.5px] text-muted mt-0.5">
+                      Each student account is restricted to one review per product to maintain dataset integrity in Semester 3.
                     </div>
                   </div>
                 </div>
               ) : (
-                /* Interactive Inline Form */
+                /* Interactive Submission Form */
                 <form onSubmit={handleReviewSubmit} className="space-y-5" noValidate>
                   {formSuccess && (
                     <div
                       role="status"
-                      className="p-3.5 bg-emerald-50 border border-success/30 text-success rounded-control text-[13px] font-medium flex items-center gap-2"
+                      className="p-3.5 bg-success-subtle border border-success/30 text-success rounded-control text-[13px] font-medium flex items-center gap-2"
                     >
-                      <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
                       <span>{formSuccess}</span>
                     </div>
                   )}
@@ -402,14 +486,14 @@ export function ProductDetailPage() {
                   {formError && (
                     <div
                       role="alert"
-                      className="p-3.5 bg-red-50 border border-error/30 text-error rounded-control text-[13px] font-medium flex items-center gap-2"
+                      className="p-3.5 bg-error-subtle border border-error/30 text-error rounded-control text-[13px] font-medium flex items-center gap-2"
                     >
                       <span aria-hidden="true">⚠</span>
                       <span>{formError}</span>
                     </div>
                   )}
 
-                  {/* Star Rating Select */}
+                  {/* Rating Selector */}
                   <div>
                     <label className="block text-[13px] font-semibold text-ink mb-2">
                       Overall rating <span className="text-error">*</span>
@@ -429,13 +513,13 @@ export function ProductDetailPage() {
                         Review feedback <span className="text-error">*</span>
                       </label>
                       <span
-                        className={`text-[12px] font-medium ${
+                        className={`text-[12px] font-medium font-mono ${
                           formText.trim().length < 20 || formText.trim().length > 1000
                             ? 'text-muted'
-                            : 'text-emerald-700'
+                            : 'text-success'
                         }`}
                       >
-                        {formText.trim().length} / 1000 characters (min 20)
+                        {formText.trim().length} / 1000 chars (min 20)
                       </span>
                     </div>
                     <textarea
@@ -443,7 +527,7 @@ export function ProductDetailPage() {
                       rows={4}
                       value={formText}
                       onChange={(e) => setFormText(e.target.value)}
-                      placeholder="Share details of your experience with this product (build quality, performance, usability)..."
+                      placeholder="Share details of your evaluation (build quality, performance, ergonomics, usability)..."
                       required
                       className="w-full p-3.5 text-[14px] bg-page border border-border rounded-control text-ink placeholder-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:bg-surface transition-all leading-relaxed"
                     />
@@ -452,7 +536,7 @@ export function ProductDetailPage() {
                   <button
                     type="submit"
                     disabled={formSubmitting || formText.trim().length < 20}
-                    className="h-[44px] px-6 bg-brand hover:bg-brand-hover text-white text-[14px] font-semibold rounded-control shadow-xs inline-flex items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="h-[44px] px-6 bg-brand hover:bg-brand-hover text-white text-[14px] font-semibold rounded-control shadow-subtle hover:shadow-card inline-flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {formSubmitting ? (
                       <span>Saving review...</span>
@@ -467,7 +551,9 @@ export function ProductDetailPage() {
               )}
             </div>
           </div>
+
         </div>
+
       </div>
     </PageShell>
   );

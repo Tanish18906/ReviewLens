@@ -3,21 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --ink: #172235;
-  --muted: #66758A;
-  --brand: #3559D9;
-  --brand-hover: #2947B4;
+  /* Editorial Academic Palette (from writing-block.md) */
+  --brand: #4056D6;
+  --brand-hover: #3447B8;
+  --brand-subtle: #EEF1FF;
+  --ink: #202B3D;
+  --muted: #66758C;
   --page: #F7F9FC;
   --surface: #FFFFFF;
-  --border: #E5EAF1;
-  --success: #16794C;
-  --warning: #B45309;
-  --error: #C53030;
-  --chart: #5575E8;
+  --border: #E3E9F2;
+  --border-focus: #4056D6;
+  --success: #16845B;
+  --success-subtle: #EBF8F2;
+  --warning: #B96A15;
+  --warning-subtle: #FDF6EE;
+  --error: #C63737;
+  --error-subtle: #FDF1F1;
+  --chart: #4056D6;
+
+  /* Geometry Tokens */
   --radius-card: 14px;
   --radius-control: 10px;
-  --shadow-card: 0 3px 18px rgba(23, 34, 53, 0.04);
-  --container: 1160px;
+  --radius-pill: 9999px;
+  --shadow-subtle: 0 1px 3px rgba(32, 43, 61, 0.04), 0 1px 2px rgba(32, 43, 61, 0.02);
+  --shadow-card: 0 2px 12px rgba(32, 43, 61, 0.05), 0 1px 3px rgba(32, 43, 61, 0.03);
+  --shadow-elevated: 0 8px 24px rgba(32, 43, 61, 0.08), 0 2px 6px rgba(32, 43, 61, 0.04);
+  --container: 1200px;
   --admin-sidebar: 232px;
 }
 
@@ -29,10 +40,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
-/* Accessible focus ring */
+/* Accessible focus ring on all interactive elements */
 *:focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--border-focus);
   outline-offset: 2px;
+}
+
+/* Subtle transitions respecting reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
