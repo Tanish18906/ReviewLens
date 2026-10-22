@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.db import Base, engine
-from app.routes import auth
+from app.routes import auth, products
 
 
 @asynccontextmanager
@@ -31,6 +31,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router, prefix="/api")
+app.include_router(products.router, prefix="/api")
 
 
 @app.get("/")
