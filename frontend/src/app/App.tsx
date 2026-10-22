@@ -1,13 +1,23 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from '../lib/auth';
+import { LoginPage } from '../pages/LoginPage';
+import { RegisterPage } from '../pages/RegisterPage';
+import { ProfilePage } from '../pages/ProfilePage';
+import { NotFoundPage } from '../pages/NotFoundPage';
+
 export default function App() {
   return (
-    <div className="min-h-screen bg-page text-ink flex flex-col items-center justify-center p-6">
-      <div className="max-w-md w-full bg-surface p-8 rounded-card shadow-card border border-border text-center">
-        <h1 className="text-2xl font-bold text-ink mb-2">ReviewLens</h1>
-        <p className="text-sm text-muted mb-4">Semester 3 · Review data prototype</p>
-        <div className="inline-flex items-center px-3 py-1 bg-brand/10 text-brand text-xs font-semibold rounded-full">
-          Frontend & Backend Foundation Active
-        </div>
-      </div>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/products" replace />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/products" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
