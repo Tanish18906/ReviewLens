@@ -229,6 +229,12 @@ export function ProductDetailPage() {
               <img
                 src={product.image_path}
                 alt={product.name}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.endsWith('.svg')) {
+                    target.src = product.image_path.replace('.jpg', '.svg');
+                  }
+                }}
                 className="w-full h-full object-cover object-center"
               />
             </div>

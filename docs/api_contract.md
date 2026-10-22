@@ -105,7 +105,7 @@
         "name": "AcousticPro Wireless Headphones",
         "category": "Audio",
         "description": "Comfortable over-ear Bluetooth headphones with active noise cancellation...",
-        "image_path": "/products/wireless-headphones.svg",
+        "image_path": "/products/wireless-headphones.jpg",
         "average_rating": 4.2,
         "review_count": 6
       }
@@ -127,7 +127,7 @@
     "name": "AcousticPro Wireless Headphones",
     "category": "Audio",
     "description": "Comfortable over-ear Bluetooth headphones with active noise cancellation...",
-    "image_path": "/products/wireless-headphones.svg",
+    "image_path": "/products/wireless-headphones.jpg",
     "average_rating": 4.2,
     "review_count": 6
   }
